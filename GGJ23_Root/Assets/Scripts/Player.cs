@@ -6,6 +6,8 @@ public class Player : MonoBehaviour
     public Quaternion rotation { get => transform.rotation; set { transform.rotation = value; } }
     public IController controller { get; set; }
 
+    public Rigidbody rb;
+
     private void Update()
     {
         if (controller != null)
