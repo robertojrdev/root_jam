@@ -2,17 +2,18 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using System.Collections;
+using DG.Tweening;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PongAI : MonoBehaviour
 {
+    public List<Transform> bricks;
     public float brickSpawnTime;
     public int bricksPerSpawn;
 
     private Rigidbody rigidbody;
     private Transform target;
 
-    private List<Transform> bricks = new List<Transform>();
     private List<Transform> hiddenBricks;
     private Transform ogBrick;
     private int spawnedBrickIndex;
@@ -23,13 +24,7 @@ public class PongAI : MonoBehaviour
         rigidbody = GetComponent<Rigidbody>();
         rigidbody.isKinematic = false;
 
-        bricks = GetComponentsInChildren<Transform>(true).ToList();
-
         hiddenBricks = new List<Transform>(bricks);
-        hiddenBricks.RemoveAt(0);
-        //ogBrick = bricks[0];
-
-        Shuffle(bricks);
 
         StartCoroutine(SpawnBrickTimer());
     }
@@ -95,24 +90,17 @@ public class PongAI : MonoBehaviour
             int rand = Random.Range(0, hiddenBricks.Count);
 
             // SPAWN BRICK
-            hiddenBricks[rand].gameObject.SetActive(true);
+            //hiddenBricks[rand].gameObject.SetActive(true);
+
+            Transform currentBrick = hiddenBricks[rand];
+
+            DOTween.Sequence()
+                .Append(currentBrick.DOScale(0, 0))
+                .AppendCallback(() => currentBrick.gameObject.SetActive(true))
+                .Append(currentBrick.DOScale(new Vector3(0.5f, 1.2f, 1.2f), 0.2f))
+                .Append(currentBrick.DOScale(new Vector3(0.3f, 1f, 1f), 0.3f));
 
             hiddenBricks.RemoveAt(rand);
-        }
-    }
-
-    public void Shuffle<T>(List<T> list)
-    {
-        System.Random rng = new System.Random();
-
-        int n = list.Count;
-        while (n > 1)
-        {
-            n--;
-            int k = rng.Next(n + 1);
-            T value = list[k];
-            list[k] = list[n];
-            list[n] = value;
         }
     }
 }
