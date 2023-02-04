@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-
 
 public class Pong : Game
 {
@@ -28,23 +28,29 @@ public class Pong : Game
 
     private void OnEnable()
     {
-        pongAI.OnAllBricksSpawned += OnGameEnd;
+        pongAI.OnAllBricksSpawned += FinishGame;
     }
 
     private void OnDisable()
     {
-        pongAI.OnAllBricksSpawned -= OnGameEnd;
+        pongAI.OnAllBricksSpawned -= FinishGame;
     }
 
-    private IEnumerator Start()
+    protected override void OnStartGame(Game previousGame)
     {
         // Initialize objects
         Initialize();
         // Make sure game doesn't start immediately
-        GameManager.GamePlaying = false;
+        // GameManager.GamePlaying = false;
+        GameManager.GamePlaying = true;
 
         //UIManager.Instance.ShowCountdown(true);
 
+        // StartCoroutine(StartTimer());
+    }
+
+    private IEnumerator StartTimer()
+    {
         // Wait 3 seconds (call some animation that shows this)
         yield return new WaitForSeconds(3);
 

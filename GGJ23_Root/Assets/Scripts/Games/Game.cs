@@ -14,7 +14,7 @@ public abstract class Game : MonoBehaviour
         OnStartGame(previousGame);
         OnGameStarted?.Invoke();
     }
-    protected virtual void OnStartGame(Game previousGame) { }
+    protected abstract void OnStartGame(Game previousGame);
 
     public void StageUpdate()
     {
@@ -22,12 +22,13 @@ public abstract class Game : MonoBehaviour
         OnUpdateStage();
         OnStageUpdated?.Invoke();
     }
-    protected virtual void OnUpdateStage() { }
+    protected abstract void OnUpdateStage();
+
 
     public void FinishGame()
     {
         OnFinishGame();
         OnGameEnded?.Invoke();
     }
-    protected virtual void OnFinishGame() { }
+    protected abstract void OnFinishGame();
 }
