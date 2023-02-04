@@ -1,8 +1,9 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class Pong : MonoBehaviour
+public class Pong : Game
 {
     private enum PongState
     {
@@ -26,23 +27,29 @@ public class Pong : MonoBehaviour
 
     private void OnEnable()
     {
-        pongAI.OnAllBricksSpawned += OnGameEnd;
+        pongAI.OnAllBricksSpawned += OnFinishGame;
     }
 
     private void OnDisable()
     {
-        pongAI.OnAllBricksSpawned -= OnGameEnd;
+        pongAI.OnAllBricksSpawned -= OnFinishGame;
     }
 
-    private IEnumerator Start()
+    public override void StartGame()
     {
         // Initialize objects
         Initialize();
         // Make sure game doesn't start immediately
-        GameManager.GamePlaying = false;
+        // GameManager.GamePlaying = false;
+        GameManager.GamePlaying = true;
 
         //UIManager.Instance.ShowCountdown(true);
 
+        // StartCoroutine(StartTimer());
+    }
+
+    private IEnumerator StartTimer()
+    {
         // Wait 3 seconds (call some animation that shows this)
         yield return new WaitForSeconds(3);
 
@@ -85,10 +92,9 @@ public class Pong : MonoBehaviour
         SetBallDirection(reflectDirection);
     }
 
-    private void OnGameEnd()
+    public override void OnFinishGame()
     {
         GameManager.GamePlaying = false;
         Whiteboard.instance.pong_BrickPos = pongAI.transform.position;
     }
-
 }
