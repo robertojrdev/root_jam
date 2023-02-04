@@ -8,17 +8,29 @@ using DG.Tweening;
 [RequireComponent(typeof(Rigidbody))]
 public class PongAI : MonoBehaviour
 {
-    public List<Transform> bricks;
+    public List<Transform> bricks = new List<Transform>();
+    public List<BrickVisuals> bricksVisuals = new List<BrickVisuals>();
+    [Header("Brick Spawning")]
     public float brickSpawnTime;
     public int bricksPerSpawn;
+    public bool spawnRandomly = false;
+    [Header("Visuals")]
+    public Gradient bricksColorsOverTime;
+    public float onHitScaleDuration = 0.3f;
+    public AnimationCurve onHitScaleCurve;
 
     private Rigidbody rigidbody;
     private Transform target;
 
+    private Pong pong;
     private List<Transform> hiddenBricks;
     private Transform ogBrick;
     private int spawnedBrickIndex;
     private bool canSpawnBrick;
+
+    private int currentSpawns;
+    private int TotalSpawns => Mathf.CeilToInt(bricks.Count / bricksPerSpawn);
+
 
     public Action OnAllBricksSpawned;
 
@@ -26,12 +38,25 @@ public class PongAI : MonoBehaviour
     {
         rigidbody = GetComponent<Rigidbody>();
         rigidbody.isKinematic = false;
-
         hiddenBricks = new List<Transform>(bricks);
 
         StartCoroutine(SpawnBrickTimer());
     }
 
+    private void OnEnable()
+    {
+        pong.OnStageUpdate += SpawnBricks;
+    }
+
+    private void OnDisable()
+    {
+        pong.OnStageUpdate -= SpawnBricks;
+    }
+
+    private void HideBricks()
+    {
+        foreach (Transform brick in bricks) brick.gameObject.SetActive(false);
+    }
     public void SetTarget(Transform target)
     {
         this.target = target;
@@ -75,8 +100,9 @@ public class PongAI : MonoBehaviour
         {
             OnAllBricksSpawned?.Invoke();
         }
+        else pong.StageUpdate(); // THIS WILL BE MOVED TO SOME OTHER LOGIC THAT CHANGES THE STAGE
 
-        SpawnBricks();
+        //SpawnBricks();
 
     }
 
@@ -86,20 +112,37 @@ public class PongAI : MonoBehaviour
         {
             if (hiddenBricks.Count == 0) break;
 
-            int rand = UnityEngine.Random.Range(0, hiddenBricks.Count);
+            // Spawn randomly or at index 0
+            int index = spawnRandomly ? UnityEngine.Random.Range(0, hiddenBricks.Count) : 0;
 
             // SPAWN BRICK
             //hiddenBricks[rand].gameObject.SetActive(true);
 
-            Transform currentBrick = hiddenBricks[rand];
+            Transform currentBrick = hiddenBricks[index];
 
-            DOTween.Sequence()
-                .Append(currentBrick.DOScale(0, 0))
-                .AppendCallback(() => currentBrick.gameObject.SetActive(true))
-                .Append(currentBrick.DOScale(new Vector3(0.5f, 1.2f, 1.2f), 0.2f))
-                .Append(currentBrick.DOScale(new Vector3(0.3f, 1f, 1f), 0.3f));
+            currentBrick.transform.localScale = Vector3.zero;
+            currentBrick.gameObject.SetActive(true);
 
-            hiddenBricks.RemoveAt(rand);
+            currentBrick.transform.DOScale(new Vector3(0.3f, 1f, 1f), onHitScaleDuration)
+            .SetEase(onHitScaleCurve);
+
+            //DOTween.Sequence()
+            //    .Append(currentBrick.DOScale(0, 0))
+            //    .AppendCallback(() => currentBrick.gameObject.SetActive(true))
+            //    .Append(currentBrick.DOScale(new Vector3(0.5f, 1.2f, 1.2f), 0.2f))
+            //    .Append(currentBrick.DOScale(new Vector3(0.3f, 1f, 1f), 0.3f));
+
+            hiddenBricks.RemoveAt(index);
+        }
+
+        currentSpawns++;
+
+        Color currentBricksColor = bricksColorsOverTime.Evaluate((float)currentSpawns / TotalSpawns);
+
+        foreach (BrickVisuals brick in bricksVisuals)
+        {
+            // set the brick color
+            brick.UpdateColor(currentBricksColor);
         }
     }
 }

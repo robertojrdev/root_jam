@@ -2,7 +2,8 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class Pong : MonoBehaviour
+
+public class Pong : Game
 {
     private enum PongState
     {
@@ -17,6 +18,7 @@ public class Pong : MonoBehaviour
     private PongState state;
     private Vector3 ballVelocity;
 
+    #region  Unity Lifecycle
     private void Awake()
     {
         ball.onBallCollision += OnBallCollide;
@@ -59,6 +61,27 @@ public class Pong : MonoBehaviour
         ball.Rigidbody.MovePosition(position);
     }
 
+    #endregion
+
+    #region Game State
+
+    public override void StartGame(Game previousGame)
+    {
+        base.StartGame(previousGame);
+    }
+    public override void StageUpdate()
+    {
+        base.StageUpdate();
+    }
+    public override void FinishGame()
+    {
+        GameManager.GamePlaying = false;
+        Whiteboard.instance.pong_BrickPos = pongAI.transform.position;
+        base.FinishGame();
+    }
+
+    #endregion
+
     public void Initialize()
     {
         ball.Rigidbody.position = ballInitialPosition;
@@ -81,11 +104,4 @@ public class Pong : MonoBehaviour
         reflectDirection.z += ySpeed;
         SetBallDirection(reflectDirection);
     }
-
-    private void OnGameEnd()
-    {
-        GameManager.GamePlaying = false;
-        Whiteboard.instance.pong_BrickPos = pongAI.transform.position;
-    }
-
 }

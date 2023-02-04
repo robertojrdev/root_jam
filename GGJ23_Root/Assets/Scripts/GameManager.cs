@@ -11,9 +11,6 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     public Mode Mode = Mode.Release;
-
-
-
     [SerializeField] private Camera camera;
     [SerializeField] private Player player;
 

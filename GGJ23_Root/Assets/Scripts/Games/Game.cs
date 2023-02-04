@@ -1,13 +1,27 @@
+using System;
 using UnityEngine;
 
 public abstract class Game
 {
-    public abstract void StartGame(Game previousGame);
-    public abstract void Update();
-    public abstract void OnFinishGame();
+    public int stages;
+    protected int currentStage;
+    public Action OnGameStarted;
+    public Action OnStageUpdate;
+    public Action OnGameEnded;
 
-    public void FinishGame()
+    public virtual void StartGame(Game previousGame)
     {
-        OnFinishGame();
+        OnGameStarted?.Invoke();
+    }
+
+    public virtual void StageUpdate()
+    {
+        currentStage++;
+        OnStageUpdate?.Invoke();
+    }
+
+    public virtual void FinishGame()
+    {
+        OnGameEnded?.Invoke();
     }
 }
