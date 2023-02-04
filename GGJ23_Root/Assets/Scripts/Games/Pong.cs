@@ -19,6 +19,7 @@ public class Pong : MonoBehaviour
     private void Awake()
     {
         ball.onBallCollision += OnBallCollide;
+        ball.onBallCollision += pongAI.SpawnBrickOnCollision;
     }
 
     private void Start()
