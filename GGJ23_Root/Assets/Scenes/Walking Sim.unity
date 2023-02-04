@@ -324,6 +324,7 @@ Transform:
   - {fileID: 72117080}
   - {fileID: 1929909401}
   - {fileID: 2088785037}
+  - {fileID: 1180639439}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -603,7 +604,7 @@ GameObject:
   - component: {fileID: 1180639439}
   - component: {fileID: 1180639438}
   m_Layer: 0
-  m_Name: yurushalayim radio
+  m_Name: radio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -757,13 +758,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1180639437}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.427, y: 0.936, z: 5.873}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: 0.5, z: -0, w: 0.86602545}
+  m_LocalPosition: {x: -0.043825828, y: 0.020238047, z: 0.028671943}
+  m_LocalScale: {x: 1.2251295, y: 1.1904762, z: 0.8008198}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_Father: {fileID: 732742122}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1259111443
 GameObject:
@@ -1126,7 +1127,7 @@ Transform:
   - {fileID: 1614123749}
   - {fileID: 2024615337}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1929909397
 GameObject:
@@ -1414,7 +1415,7 @@ RectTransform:
   - {fileID: 594061760}
   - {fileID: 1445118939}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
