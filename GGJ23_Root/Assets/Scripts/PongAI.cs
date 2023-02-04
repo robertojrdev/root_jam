@@ -3,14 +3,16 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class PongAI : MonoBehaviour
 {
-    public float smoothSpeed;
+    public int maxPaddleSpawn;
+    public float paddleSpawnInterval;
+
     private Rigidbody rigidbody;
     private Transform target;
 
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
-        rigidbody.isKinematic = true;
+        rigidbody.isKinematic = false;
     }
 
     public void SetTarget(Transform target)
@@ -22,9 +24,6 @@ public class PongAI : MonoBehaviour
     {
         if (!target)
             return;
-
-        // if(target.position.x > 0)
-        //     return;
 
         //move a rigidbody in a constant speed towards a target position
 
