@@ -45,12 +45,12 @@ public class PongAI : MonoBehaviour
 
     private void OnEnable()
     {
-        pong.OnStageUpdate += SpawnBricks;
+        pong.OnStageUpdated += SpawnBricks;
     }
 
     private void OnDisable()
     {
-        pong.OnStageUpdate -= SpawnBricks;
+        pong.OnStageUpdated -= SpawnBricks;
     }
 
     private void HideBricks()
