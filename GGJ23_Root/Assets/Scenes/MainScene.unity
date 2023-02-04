@@ -304,7 +304,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f0cf537820984e45a939ac0985a6a45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pongPlayerInitialPosition: {x: 0, y: 0, z: 0}
+  pongPlayerInitialPosition: {x: 8, y: 0, z: 0}
   pongPlayerMovementMinMaxHeight: 3
   pongPlayerMovementSpeed: 15
 --- !u!114 &1482435406
