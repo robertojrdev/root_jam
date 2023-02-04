@@ -12,9 +12,6 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     public Mode Mode = Mode.Release;
     [SerializeField] private Camera camera;
-    [SerializeField] private Player player;
-
-    public Player Player { get => player; }
     public Camera Camera { get => camera; }
 
     public static bool GamePlaying { get; set; }
@@ -29,12 +26,5 @@ public class GameManager : MonoBehaviour
         }
 
         Instance = this;
-    }
-
-    private void Start()
-    {
-        player.controller = new PongController();
-        player.position = Settings.Instance.pongPlayerInitialPosition;
-        //player.controller = new RunnerController();
     }
 }

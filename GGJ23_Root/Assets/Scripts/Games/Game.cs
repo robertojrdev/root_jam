@@ -1,27 +1,33 @@
 using System;
 using UnityEngine;
 
-public abstract class Game
+public abstract class Game : MonoBehaviour
 {
     public int stages;
     protected int currentStage;
     public Action OnGameStarted;
-    public Action OnStageUpdate;
+    public Action OnStageUpdated;
     public Action OnGameEnded;
 
-    public virtual void StartGame(Game previousGame)
+    public void StartGame(Game previousGame)
     {
+        OnStartGame(previousGame);
         OnGameStarted?.Invoke();
     }
+    protected virtual void OnStartGame(Game previousGame) { }
 
-    public virtual void StageUpdate()
+    public void StageUpdate()
     {
         currentStage++;
-        OnStageUpdate?.Invoke();
+        OnUpdateStage();
+        OnStageUpdated?.Invoke();
     }
+    protected virtual void OnUpdateStage() { }
 
-    public virtual void FinishGame()
+    public void FinishGame()
     {
+        OnFinishGame();
         OnGameEnded?.Invoke();
     }
+    protected virtual void OnFinishGame() { }
 }

@@ -13,6 +13,7 @@ public class Pong : Game
 
     public Vector3 ballInitialPosition;
     public float ballSpeed;
+    public Player player;
     public Ball ball;
     public PongAI pongAI;
     private PongState state;
@@ -64,26 +65,18 @@ public class Pong : Game
     #endregion
 
     #region Game State
-
-    public override void StartGame(Game previousGame)
-    {
-        base.StartGame(previousGame);
-    }
-    public override void StageUpdate()
-    {
-        base.StageUpdate();
-    }
-    public override void FinishGame()
+    protected override void OnFinishGame()
     {
         GameManager.GamePlaying = false;
         Whiteboard.instance.pong_BrickPos = pongAI.transform.position;
-        base.FinishGame();
     }
 
     #endregion
 
     public void Initialize()
     {
+        player.controller = new PongController();
+        player.position = Settings.Instance.pongPlayerInitialPosition;
         ball.Rigidbody.position = ballInitialPosition;
         pongAI.SetTarget(ball.transform);
         SetBallDirection(Vector3.left + Vector3.forward);
