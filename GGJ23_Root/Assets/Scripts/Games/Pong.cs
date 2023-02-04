@@ -12,6 +12,7 @@ public class Pong : MonoBehaviour
     public Vector3 ballInitialPosition;
     public float ballSpeed;
     public Ball ball;
+    public PongAI pongAI;
     private PongState state;
     private Vector3 ballVelocity;
 
@@ -36,7 +37,8 @@ public class Pong : MonoBehaviour
     public void StartGame()
     {
         ball.Rigidbody.position = ballInitialPosition;
-        SetBallDirection(Vector3.left);
+        pongAI.SetTarget(ball.transform);
+        SetBallDirection(Vector3.left + Vector3.forward);
     }
 
     public void SetBallDirection(Vector3 direction)
@@ -48,11 +50,11 @@ public class Pong : MonoBehaviour
 
     private void OnBallCollide(Collision other)
     {
+        var reflectDirection = Vector3.Reflect(ballVelocity, other.contacts[0].normal);
         var ySpeed = other.rigidbody.velocity.z;
-        var ballSpeed = -ballVelocity;
 
-        ballSpeed.z += ySpeed;
-        SetBallDirection(ballSpeed);
+        reflectDirection.z += ySpeed;
+        SetBallDirection(reflectDirection);
     }
 
 }
