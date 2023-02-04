@@ -10,6 +10,8 @@ public class Settings : MonoBehaviour
 
     public ObjectState breakoutInitialPlayerPosition;
 
+    public float runnerPlayerMovementSpeed;
+
     private void Awake()
     {
         if(Instance)
