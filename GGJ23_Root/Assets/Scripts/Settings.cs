@@ -8,6 +8,8 @@ public class Settings : MonoBehaviour
     public float pongPlayerMovementMinMaxHeight;
     public float pongPlayerMovementSpeed;
 
+    public ObjectState breakoutInitialPlayerPosition;
+
     private void Awake()
     {
         if(Instance)
