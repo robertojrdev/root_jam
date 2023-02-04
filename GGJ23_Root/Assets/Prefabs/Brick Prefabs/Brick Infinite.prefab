@@ -68,6 +68,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2860754484009391100, guid: 3cf02dd14866997419fa88c06d8bf009, type: 3}
+      propertyPath: m_Constraints
+      value: 126
+      objectReference: {fileID: 0}
     - target: {fileID: 9040144144834185264, guid: 3cf02dd14866997419fa88c06d8bf009, type: 3}
       propertyPath: m_Name
       value: Brick Infinite

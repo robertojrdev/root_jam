@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using DG.Tweening;
 
 public class BreakoutGame : MonoBehaviour
 {
@@ -50,7 +51,12 @@ public class BreakoutGame : MonoBehaviour
 
     private void DespawnBrick(Collision other)
     {
-        other.gameObject.SetActive(false);
+        Renderer renderer = other.transform.GetChild(0).GetComponent<Renderer>();
+
+        DOTween.Sequence()
+            .Append(renderer.material.DOColor(Color.red, 0f))
+            .Append(other.transform.DOScaleZ(0, 0.1f))
+            .AppendCallback(() => other.gameObject.SetActive(false));
     }
 
     private void FixedUpdate()
