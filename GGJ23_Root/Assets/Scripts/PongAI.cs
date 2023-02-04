@@ -44,10 +44,6 @@ public class PongAI : MonoBehaviour
 
         //move a rigidbody in a constant speed towards a target position
 
-
-        // Get the Rigidbody component from the game object
-        Rigidbody rb = GetComponent<Rigidbody>();
-
         // Set the speed of the rigidbody
 
 
@@ -59,7 +55,7 @@ public class PongAI : MonoBehaviour
         dir = Vector3.ClampMagnitude(dir, 1);
 
         // Move the rigidbody in that direction with a constant speed
-        rb.MovePosition(transform.position + dir * Settings.Instance.pongPlayerMovementSpeed * 1.5f * Time.deltaTime);
+        rigidbody.MovePosition(transform.position + dir * Settings.Instance.pongPlayerMovementSpeed * 1.5f * Time.deltaTime);
     }
 
     private IEnumerator SpawnBrickTimer()

@@ -6,6 +6,7 @@ public enum Mode
     Release
 }
 
+[DefaultExecutionOrder(-1)]
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
@@ -35,6 +36,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        player.controller = new RunnerController();
+        player.controller = new PongController();
+        player.position = Settings.Instance.pongPlayerInitialPosition;
+        //player.controller = new RunnerController();
     }
 }

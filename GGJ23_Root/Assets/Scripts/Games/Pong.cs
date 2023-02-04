@@ -40,7 +40,7 @@ public class Pong : MonoBehaviour
         // Make sure game doesn't start immediately
         GameManager.GamePlaying = false;
 
-        UIManager.Instance.ShowCountdown(true);
+        //UIManager.Instance.ShowCountdown(true);
 
         // Wait 3 seconds (call some animation that shows this)
         yield return new WaitForSeconds(3);

@@ -1,0 +1,10 @@
+diff a/GGJ23_Root/Assets/Scripts/GameManager.cs b/GGJ23_Root/Assets/Scripts/GameManager.cs	(rejected hunks)
+@@ -24,7 +24,6 @@
+ 
+     private void Start()
+     {
+-        player.position = Settings.Instance.pongPlayerInitialPosition;
+         player.controller = new RunnerController();
+     }
+ }
+\ No newline at end of file
