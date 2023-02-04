@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class Pong : MonoBehaviour
@@ -11,6 +12,7 @@ public class Pong : MonoBehaviour
 
     public Vector3 ballInitialPosition;
     public float ballSpeed;
+    public Player player;
     public Ball ball;
     public PongAI pongAI;
     private PongState state;
@@ -19,23 +21,49 @@ public class Pong : MonoBehaviour
     private void Awake()
     {
         ball.onBallCollision += OnBallCollide;
+        ball.onBallCollision += pongAI.SpawnBrickOnCollision;
     }
 
-    private void Start()
+    private void OnEnable()
     {
-        StartGame();
+        pongAI.OnAllBricksSpawned += OnGameEnd;
+    }
+
+    private void OnDisable()
+    {
+        pongAI.OnAllBricksSpawned -= OnGameEnd;
+    }
+
+    private IEnumerator Start()
+    {
+        // Initialize objects
+        Initialize();
+        // Make sure game doesn't start immediately
+        GameManager.GamePlaying = false;
+
+        //UIManager.Instance.ShowCountdown(true);
+
+        // Wait 3 seconds (call some animation that shows this)
+        yield return new WaitForSeconds(3);
+
+        // Start the game
+        GameManager.GamePlaying = true;
     }
 
     private void FixedUpdate()
     {
+        if (!GameManager.GamePlaying) return;
+
         ball.Rigidbody.velocity = Vector3.zero;
         var movement = ballVelocity * Time.deltaTime;
         var position = ball.Rigidbody.position + movement;
         ball.Rigidbody.MovePosition(position);
     }
 
-    public void StartGame()
+    public void Initialize()
     {
+        player.controller = new PongController();
+        player.position = Settings.Instance.pongPlayerInitialPosition;
         ball.Rigidbody.position = ballInitialPosition;
         pongAI.SetTarget(ball.transform);
         SetBallDirection(Vector3.left + Vector3.forward);
@@ -55,6 +83,12 @@ public class Pong : MonoBehaviour
 
         reflectDirection.z += ySpeed;
         SetBallDirection(reflectDirection);
+    }
+
+    private void OnGameEnd()
+    {
+        GameManager.GamePlaying = false;
+        Whiteboard.instance.pong_BrickPos = pongAI.transform.position;
     }
 
 }

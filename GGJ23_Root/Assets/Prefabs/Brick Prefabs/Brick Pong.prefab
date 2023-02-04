@@ -79,8 +79,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39dfd5b5ca20b3347aa390537d0f332a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxPaddleSpawn: 0
-  paddleSpawnInterval: 0
+  bricks: []
+  brickSpawnTime: 0
+  bricksPerSpawn: 0
 --- !u!1001 &7188272910956904120
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -136,5 +137,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6701749880192291744, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9e33d59358e15164dbaf600365a12de2, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}

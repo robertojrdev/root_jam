@@ -1,8 +1,13 @@
 using UnityEngine;
 
-public abstract class Game
+public abstract class Game : MonoBehaviour
 {
-    public abstract void StartGame(Game previousGame);
+    private void Awake()
+    {
+        
+    }
+
+    public abstract void StartGame();
     public abstract void Update();
     public abstract void OnFinishGame();
 
