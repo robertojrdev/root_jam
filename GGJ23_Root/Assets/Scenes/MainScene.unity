@@ -324,7 +324,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 126
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!1 &619634202
 GameObject:
   m_ObjectHideFlags: 0
@@ -459,7 +459,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!114 &654024775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -489,6 +489,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39dfd5b5ca20b3347aa390537d0f332a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  smoothSpeed: 0
 --- !u!54 &919135991
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -504,7 +505,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -622,7 +623,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pongPlayerInitialPosition: {x: 8, y: 0, z: 0}
   pongPlayerMovementMinMaxHeight: 3
-  pongPlayerMovementSpeed: 15
+  pongPlayerMovementSpeed: 10
   breakoutInitialPlayerPosition:
     position: {x: 0, y: 0, z: 0}
     scale: {x: 0, y: 0, z: 0}
@@ -669,7 +670,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ballInitialPosition: {x: 0, y: 0, z: 0}
-  ballSpeed: 0
+  ballSpeed: 10
   ball: {fileID: 654024775}
   pongAI: {fileID: 919135990}
 --- !u!114 &1657449309 stripped
