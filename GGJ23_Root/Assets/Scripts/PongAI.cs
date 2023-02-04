@@ -1,19 +1,22 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using System.Collections;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PongAI : MonoBehaviour
 {
-    public int maxPaddleSpawn;
     public float brickSpawnTime;
+    public int bricksPerSpawn;
 
     private Rigidbody rigidbody;
     private Transform target;
 
     private List<Transform> bricks = new List<Transform>();
+    private List<Transform> hiddenBricks;
     private Transform ogBrick;
     private int spawnedBrickIndex;
+    private bool canSpawnBrick;
 
     private void Awake()
     {
@@ -21,9 +24,14 @@ public class PongAI : MonoBehaviour
         rigidbody.isKinematic = false;
 
         bricks = GetComponentsInChildren<Transform>(true).ToList();
-        ogBrick = bricks[0];
+
+        hiddenBricks = new List<Transform>(bricks);
+        hiddenBricks.RemoveAt(0);
+        //ogBrick = bricks[0];
 
         Shuffle(bricks);
+
+        StartCoroutine(SpawnBrickTimer());
     }
 
     public void SetTarget(Transform target)
@@ -56,13 +64,41 @@ public class PongAI : MonoBehaviour
         rb.MovePosition(transform.position + dir * Settings.Instance.pongPlayerMovementSpeed * 1.5f * Time.deltaTime);
     }
 
-    private void SpawnBrick()
+    private IEnumerator SpawnBrickTimer()
     {
-        if (bricks[spawnedBrickIndex] == ogBrick)
+        yield return new WaitForSeconds(brickSpawnTime);
+
+        canSpawnBrick = true;
+    }
+
+    public void SpawnBrickOnCollision(Collision other)
+    {
+        if (other.transform != transform) 
+            return;
+        if (!canSpawnBrick) 
+            return;
+
+        SpawnBricks();
+
+        if (hiddenBricks.Count == 0)
         {
-            bricks[spawnedBrickIndex].gameObject.SetActive(true);
+            // NEXT GAME
         }
-            spawnedBrickIndex++;
+    }
+
+    private void SpawnBricks()
+    {
+        for (int i = 0; i < bricksPerSpawn; i++)
+        {
+            if (hiddenBricks.Count == 0) break;
+
+            int rand = Random.Range(0, hiddenBricks.Count);
+
+            // SPAWN BRICK
+            hiddenBricks[rand].gameObject.SetActive(true);
+
+            hiddenBricks.RemoveAt(rand);
+        }
     }
 
     public void Shuffle<T>(List<T> list)

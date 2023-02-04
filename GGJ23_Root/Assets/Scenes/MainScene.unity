@@ -130,6 +130,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 456281137}
     m_Modifications:
+    - target: {fileID: 2539865016468095730, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3934483410665663225, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
       propertyPath: m_Name
       value: Pong Model (6)
@@ -199,6 +203,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 456281137}
     m_Modifications:
+    - target: {fileID: 2539865016468095730, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3934483410665663225, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
       propertyPath: m_Name
       value: Pong Model (12)
@@ -335,6 +343,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 456281137}
     m_Modifications:
+    - target: {fileID: 2539865016468095730, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3934483410665663225, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
       propertyPath: m_Name
       value: Pong Model (16)
@@ -409,6 +421,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 456281137}
     m_Modifications:
+    - target: {fileID: 2539865016468095730, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3934483410665663225, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
       propertyPath: m_Name
       value: Pong Model (15)
@@ -478,6 +494,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 456281137}
     m_Modifications:
+    - target: {fileID: 2539865016468095730, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3934483410665663225, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
       propertyPath: m_Name
       value: Pong Model (4)
@@ -796,6 +816,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 456281137}
     m_Modifications:
+    - target: {fileID: 2539865016468095730, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3934483410665663225, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
       propertyPath: m_Name
       value: Pong Model (2)
@@ -898,6 +922,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 456281137}
     m_Modifications:
+    - target: {fileID: 2539865016468095730, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3934483410665663225, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
       propertyPath: m_Name
       value: Pong Model (14)
@@ -924,7 +952,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6645528180445852198, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6.6
+      value: -6.6000004
       objectReference: {fileID: 0}
     - target: {fileID: 6645528180445852198, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
       propertyPath: m_LocalRotation.w
@@ -967,6 +995,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 456281137}
     m_Modifications:
+    - target: {fileID: 2539865016468095730, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3934483410665663225, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
       propertyPath: m_Name
       value: Pong Model (3)
@@ -1120,6 +1152,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 456281137}
     m_Modifications:
+    - target: {fileID: 2539865016468095730, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3934483410665663225, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
       propertyPath: m_Name
       value: Pong Model (9)
@@ -1189,6 +1225,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 456281137}
     m_Modifications:
+    - target: {fileID: 2539865016468095730, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3934483410665663225, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
       propertyPath: m_Name
       value: Pong Model (8)
@@ -1215,7 +1255,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6645528180445852198, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.4
+      value: -4.4000006
       objectReference: {fileID: 0}
     - target: {fileID: 6645528180445852198, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1258,6 +1298,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 456281137}
     m_Modifications:
+    - target: {fileID: 2539865016468095730, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3934483410665663225, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
       propertyPath: m_Name
       value: Pong Model (5)
@@ -1284,7 +1328,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6645528180445852198, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.1
+      value: -1.1000001
       objectReference: {fileID: 0}
     - target: {fileID: 6645528180445852198, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1421,6 +1465,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 456281137}
     m_Modifications:
+    - target: {fileID: 2539865016468095730, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3934483410665663225, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
       propertyPath: m_Name
       value: Pong Model (11)
@@ -1490,6 +1538,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 456281137}
     m_Modifications:
+    - target: {fileID: 2539865016468095730, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3934483410665663225, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
       propertyPath: m_Name
       value: Pong Model (13)
@@ -1559,6 +1611,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 456281137}
     m_Modifications:
+    - target: {fileID: 2539865016468095730, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3934483410665663225, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
       propertyPath: m_Name
       value: Pong Model (7)
@@ -1628,6 +1684,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 456281137}
     m_Modifications:
+    - target: {fileID: 2539865016468095730, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3934483410665663225, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
       propertyPath: m_Name
       value: Pong Model (1)
@@ -1697,6 +1757,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 456281137}
     m_Modifications:
+    - target: {fileID: 2539865016468095730, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3934483410665663225, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
       propertyPath: m_Name
       value: Pong Model (10)
@@ -1723,7 +1787,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6645528180445852198, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6.6
+      value: 6.5999994
       objectReference: {fileID: 0}
     - target: {fileID: 6645528180445852198, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1824,7 +1888,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2379727519047000477, guid: 0dfdc4d311cad8e408dc37fbc557c064, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 12.09
       objectReference: {fileID: 0}
     - target: {fileID: 2379727519047000477, guid: 0dfdc4d311cad8e408dc37fbc557c064, type: 3}
       propertyPath: m_LocalScale.z
@@ -1893,7 +1957,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3966392110407380351, guid: 6493cb64763e6cb45bc035a67d3ac319, type: 3}
       propertyPath: brickSpawnTime
-      value: 5
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3966392110407380351, guid: 6493cb64763e6cb45bc035a67d3ac319, type: 3}
+      propertyPath: bricksPerSpawn
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4521761509290208536, guid: 6493cb64763e6cb45bc035a67d3ac319, type: 3}
       propertyPath: m_Materials.Array.data[0]
