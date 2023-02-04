@@ -24,7 +24,6 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        player.controller = new PongController();
-        player.position = Settings.Instance.pongPlayerInitialPosition;
+        player.controller = new RunnerController();
     }
 }
