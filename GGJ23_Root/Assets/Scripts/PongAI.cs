@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,8 @@ public class PongAI : MonoBehaviour
     private Transform ogBrick;
     private int spawnedBrickIndex;
     private bool canSpawnBrick;
+
+    public Action OnAllBricksSpawned;
 
     private void Awake()
     {
@@ -68,17 +71,17 @@ public class PongAI : MonoBehaviour
 
     public void SpawnBrickOnCollision(Collision other)
     {
-        if (other.transform != transform) 
+        if (other.transform != transform)
             return;
-        if (!canSpawnBrick) 
+        if (!canSpawnBrick)
             return;
+        if (hiddenBricks.Count == 0)
+        {
+            OnAllBricksSpawned?.Invoke();
+        }
 
         SpawnBricks();
 
-        if (hiddenBricks.Count == 0)
-        {
-            // NEXT GAME
-        }
     }
 
     private void SpawnBricks()
@@ -87,7 +90,7 @@ public class PongAI : MonoBehaviour
         {
             if (hiddenBricks.Count == 0) break;
 
-            int rand = Random.Range(0, hiddenBricks.Count);
+            int rand = UnityEngine.Random.Range(0, hiddenBricks.Count);
 
             // SPAWN BRICK
             //hiddenBricks[rand].gameObject.SetActive(true);
