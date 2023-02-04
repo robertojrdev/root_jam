@@ -12,6 +12,7 @@ public class Pong : MonoBehaviour
 
     public Vector3 ballInitialPosition;
     public float ballSpeed;
+    public Player player;
     public Ball ball;
     public PongAI pongAI;
     private PongState state;
@@ -61,6 +62,8 @@ public class Pong : MonoBehaviour
 
     public void Initialize()
     {
+        player.controller = new PongController();
+        player.position = Settings.Instance.pongPlayerInitialPosition;
         ball.Rigidbody.position = ballInitialPosition;
         pongAI.SetTarget(ball.transform);
         SetBallDirection(Vector3.left + Vector3.forward);

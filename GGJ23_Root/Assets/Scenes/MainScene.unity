@@ -467,7 +467,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Mode: 1
   camera: {fileID: 963194227}
-  player: {fileID: 0}
 --- !u!4 &1482435407
 Transform:
   m_ObjectHideFlags: 0
@@ -497,5 +496,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ballInitialPosition: {x: -2, y: 0, z: 0}
   ballSpeed: 10
+  player: {fileID: 0}
   ball: {fileID: 0}
   pongAI: {fileID: 0}
