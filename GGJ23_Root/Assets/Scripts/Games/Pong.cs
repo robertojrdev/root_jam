@@ -58,4 +58,9 @@ public class Pong : MonoBehaviour
         SetBallDirection(reflectDirection);
     }
 
+    private void OnGameEnd()
+    {
+        Whiteboard.instance.pong_BrickPos = pongAI.transform.position;
+    }
+
 }
