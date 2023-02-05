@@ -34,9 +34,4 @@ public class InfiniteRunner : MonoBehaviour
             songAudioSorce.Play();
         }
     }
-
-    void TransitionToWalker()
-    {
-        wrManager.StartWalker();
-    }
 }

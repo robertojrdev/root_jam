@@ -29,7 +29,7 @@ public class Pong : Game
     protected override void SetupGame()
     {
         ball.onBallCollision += OnBallCollide;
-        ball.onBallCollision += pongAI.SpawnBrickOnCollision;
+        ball.onBallCollision += pongAI.OnBallCollision;
 
         player.controller = new PongController();
         player.position = Settings.Instance.pongPlayerInitialPosition;
