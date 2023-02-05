@@ -7,12 +7,22 @@ public class Player : MonoBehaviour
     public IController controller { get; set; }
 
     public Rigidbody rb;
+    public ParticleSystem hitVFX;
 
     private void Update()
     {
         if (controller != null && GameManager.GamePlaying)
         {
             controller.ApplyMovement(this);
+        }
+    }
+
+    public void PlayHitVFX()
+    {
+        if (hitVFX != null)
+        {
+            if (!hitVFX.gameObject.activeSelf) hitVFX.gameObject.SetActive(true);
+            hitVFX.Play();
         }
     }
 }

@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3544507562825759043}
   - component: {fileID: 5101737124959294872}
   - component: {fileID: 7736665720606561255}
-  - component: {fileID: 5429646503682949213}
   m_Layer: 0
   m_Name: VFX_BreakoutLevel
   m_TagString: Untagged
@@ -4815,26 +4814,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!95 &5429646503682949213
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1452829137752410965}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5bef2b2f357defe4b9dc2e5976b9f1db, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1536497389683973467
 GameObject:
   m_ObjectHideFlags: 0
@@ -15245,7 +15224,7 @@ ParticleSystem:
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
     m_Rotation: {x: 0, y: 0, z: 0}
-    m_Scale: {x: 12, y: 20, z: 1}
+    m_Scale: {x: 20, y: 32, z: 1}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
@@ -15443,7 +15422,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 500
+      scalar: 900
       minScalar: 10
       maxCurve:
         serializedVersion: 2

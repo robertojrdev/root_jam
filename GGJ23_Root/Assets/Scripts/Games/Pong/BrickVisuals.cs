@@ -40,7 +40,11 @@ public class BrickVisuals : MonoBehaviour
     public void OnHit()
     {
         Debug.Log("PLAY HIT EFFECTS!");
-        if (hitEffects) hitEffects.Play();
+        if (hitEffects)
+        {
+            if (!hitEffects.gameObject.activeSelf) hitEffects.gameObject.SetActive(true);
+            hitEffects.Play();
+        }
     }
 
     public void UpdateColor(Color color, float blendTime = 0)
