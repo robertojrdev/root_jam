@@ -7,6 +7,8 @@ public class Events : MonoBehaviour
 
 
     public Action<Game> onGameLoaded;
+    public Action<Game> onGameGameStarted;
+    public Action<Game> onGameEnded;
 
     private void Awake()
     {
