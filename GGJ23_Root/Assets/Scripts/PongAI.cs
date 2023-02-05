@@ -110,6 +110,8 @@ public class PongAI : MonoBehaviour
             // SFXManager.PlaySFX("pong_hit_" + UnityEngine.Random.Range(0, 4));
             
             // play player hit effects
+            Debug.Log("PLAYER = null " + player == null);
+            player.PlayHitVFX();
         }
         else
         {

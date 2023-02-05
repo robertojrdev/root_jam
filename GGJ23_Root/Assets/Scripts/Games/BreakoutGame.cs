@@ -14,7 +14,6 @@ public class BreakoutGame : Game
     public List<Transform> brickRows;
 
     [Header("Settings")]
-    public float ballSpeed;
     public float minMaxMovement;
 
     [Header("Initial Anim Properties")]
@@ -29,7 +28,6 @@ public class BreakoutGame : Game
     [Header("End Game Condition")]
     public float bricksLeftToWin;
 
-
     private List<float> bricksLocalX = new List<float>();
     private Vector3 ballDirection;
     private Vector3 ballPos;
@@ -43,6 +41,37 @@ public class BreakoutGame : Game
     private List<Transform> activeBricks = new List<Transform>();
     private List<BrickVisuals> bricksVfx = new List<BrickVisuals>();
 
+    float CompletePercentage => 1 - currentbricksAlive / initialBricksAlive;
+    Vector2 minMaxTimeToMaxSpeed;
+    Vector2 minMaxSlowSpeed;
+    Vector2 minMaxFastSpeed;
+    float currentBallSpeed;
+    float elapsedTime = 0;
+    float timeToMaxSpeed;
+
+    #region Unity Lifecycle
+
+    private void Start()
+    {
+        currentStage = 0;
+        elapsedTime = 0;
+    }
+
+    private void FixedUpdate()
+    {
+        ball.Rigidbody.velocity = Vector3.zero;
+        var movement = ballVelocity * Time.deltaTime;
+        var position = ball.Rigidbody.position + movement;
+        ball.Rigidbody.MovePosition(position);
+    }
+
+    private void Update()
+    {
+        if (GameManager.Instance.Mode == Mode.Debug && Input.GetKeyDown(KeyCode.N)) FinishGame();
+        UpdateTimeBasedParameters();
+    }
+
+    #endregion
 
     protected override void SetupGame()
     {
@@ -54,7 +83,8 @@ public class BreakoutGame : Game
         ballPos = Whiteboard.instance.pong_BallPosition;
         playerPos = Whiteboard.instance.pong_PlayerPosition;
 
-        ballDirection = Whiteboard.instance.pong_BallDirection;
+        ballDirection = Vector3.left + Vector3.forward;
+        currentBallSpeed = Whiteboard.instance.pong_BallSpeed;
 
         foreach (Transform t in brickRows)
         {
@@ -80,6 +110,12 @@ public class BreakoutGame : Game
         currentbricksAlive = initialBricksAlive;
         bricksToTriggerNextStage = initialBricksAlive - (initialBricksAlive / stages);
 
+        minMaxTimeToMaxSpeed = Settings.Instance.breakoutMinMaxTimeToReachMaxSpeed;
+        timeToMaxSpeed = minMaxTimeToMaxSpeed.x;
+        minMaxSlowSpeed = Settings.Instance.breakoutMinMaxSlowestSpeed;
+        minMaxFastSpeed = Settings.Instance.breakoutMinMaxFastestSpeed;
+        elapsedTime = 0;
+
         ball.onBallCollision += OnBallCollide;
     }
 
@@ -88,16 +124,29 @@ public class BreakoutGame : Game
         StartCoroutine(StartGameTimer());
     }
 
-    private IEnumerator StartGameTimer()
+    protected override void OnRestartGame()
     {
+        ballPos = Whiteboard.instance.pong_BallPosition;
+        playerPos = Whiteboard.instance.pong_PlayerPosition;
+        ballDirection = Vector3.left + Vector3.forward;
+        currentBallSpeed = Whiteboard.instance.pong_BallSpeed;
+        GameManager.GamePlaying = false;
+        //UIManager.Instance.ShowCountdown(true);
+        StartCoroutine(StartGameTimer(false));
+    }
+
+    private IEnumerator StartGameTimer(bool playTransition = true)
+    {
+        if (playTransition)
+        {
+            DOTween.Sequence()
+                .Append(brickFirstRowPivot.DOMoveZ(0, paddlesCenterTime))
+                .Append(gameHolder.DORotate(new Vector3(0, gameTargetXRotationAngle, 0), rotationTimer))
+                .Join(gameCam.transform.DOMoveY(camTargetYPos, camMoveTime));
+        }
+
         float t = 0;
         Vector3 ballCurrentPos = ball.transform.localPosition;
-
-        DOTween.Sequence()
-            .Append(brickFirstRowPivot.DOMoveZ(0, paddlesCenterTime))
-            .Append(gameHolder.DORotate(new Vector3(0, gameTargetXRotationAngle, 0), rotationTimer))
-            .Join(gameCam.transform.DOMoveY(camTargetYPos, camMoveTime));
-
 
         while (t < ballToCenterTime)
         {
@@ -108,17 +157,18 @@ public class BreakoutGame : Game
             yield return null;
         }
 
-        yield return new WaitForSeconds(1);
-
-        for (int i = 0; i < brickRows.Count; i++)
+        if (playTransition)
         {
-            yield return StartCoroutine(RowDescendRoutine(i));
-        }
+            yield return new WaitForSeconds(1);
 
+            for (int i = 0; i < brickRows.Count; i++)
+            {
+                yield return StartCoroutine(RowDescendRoutine(i));
+            }
+        }
 
         // Start the game
         GameManager.GamePlaying = true;
-
 
         SetBallDirection(ballDirection);
     }
@@ -144,23 +194,34 @@ public class BreakoutGame : Game
         brickRows[index].localPosition = destinationPos;
     }
 
+    public void UpdateTimeBasedParameters()
+    {
+        timeToMaxSpeed = Mathf.Lerp(minMaxTimeToMaxSpeed.x, minMaxTimeToMaxSpeed.y, CompletePercentage);
+        elapsedTime += Time.deltaTime;
+        float percentTime = elapsedTime / timeToMaxSpeed;
+
+        float slowestSpeed = Mathf.Lerp(minMaxSlowSpeed.x, minMaxSlowSpeed.y, percentTime);
+        float fastestSpeed = Mathf.Lerp(minMaxSlowSpeed.x, minMaxSlowSpeed.y, percentTime);
+        currentBallSpeed = Mathf.Lerp(slowestSpeed, fastestSpeed, percentTime);
+    }
+
     public void SetBallDirection(Vector3 direction)
     {
         direction.y = 0;
         direction.Normalize();
-        ballVelocity = direction * ballSpeed;
-    }
-
-    private void FixedUpdate()
-    {
-        ball.Rigidbody.velocity = Vector3.zero;
-        var movement = ballVelocity * Time.deltaTime;
-        var position = ball.Rigidbody.position + movement;
-        ball.Rigidbody.MovePosition(position);
+        ballVelocity = direction * currentBallSpeed;
     }
 
     private void OnBallCollide(Collision other)
     {
+        // Lose condition
+        if (other.gameObject.CompareTag("Bounds"))
+        {
+            Debug.Log("Should lose game");
+            RestartGame();
+            return;
+        }
+
         var reflectDirection = Vector3.Reflect(ballVelocity, other.contacts[0].normal);
         var ySpeed = other.rigidbody.velocity.z;
 
@@ -181,6 +242,8 @@ public class BreakoutGame : Game
         DespawnBrick(other);
         currentbricksAlive--;
 
+
+
         if (currentbricksAlive <= bricksLeftToWin)
         {
             print("acabou crl!!");
@@ -197,10 +260,12 @@ public class BreakoutGame : Game
 
     private void DespawnBrick(Collision other)
     {
+        Debug.Log("COLLIDED WITH " + other.gameObject.name);
         BrickVisuals bv = other.transform.GetComponentInChildren<BrickVisuals>();
-        Transform t = other.transform;
 
+        Transform t = other.transform;
         bv.OnHit();
+        bv.Show(false);
         bricksVfx.Remove(bv);
         activeBricks.Remove(t);
 
@@ -229,6 +294,7 @@ public class BreakoutGame : Game
         print("Finished game!");
         GameManager.GamePlaying = false;
 
+
         // AO FAZER DEBUG A LISTA DE ACTIVE BRICKS PODE TER MUITO MAIS DO QUE 6.
         // DESTA MANEIRA APENAS FICAM 6 PARA EFEITOS DE TRANSI�AO MESMO QD ESTAMOS EM DEBUG
 
@@ -246,8 +312,4 @@ public class BreakoutGame : Game
         Whiteboard.instance.breakout_CameraFoV = gameCam.fieldOfView;
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.N)) FinishGame();
-    }
 }
