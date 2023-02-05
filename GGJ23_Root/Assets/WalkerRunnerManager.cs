@@ -8,9 +8,9 @@ public class WalkerRunnerManager : MonoBehaviour
     public bool runner = true;
     public bool walker = false;
 
-    //[Header("Transition")]
-    //[Range(0,1)]
-    //public float transitionSlider = 0f;
+    [Header("Transition")]
+    [Range(0, 1)]
+    public float transitionSlider = 0f;
 
     [Header("Components")]
     public WalkerCamera wCam;
