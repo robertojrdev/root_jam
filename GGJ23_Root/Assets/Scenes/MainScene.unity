@@ -345,6 +345,7 @@ MonoBehaviour:
   breakoutMinMaxTimeToReachMaxSpeed: {x: 30, y: 10}
   breakoutMinMaxSlowestSpeed: {x: 10, y: 15}
   breakoutMinMaxFastestSpeed: {x: 15, y: 25}
+  breakoutPlayerMovementSpeed: 15
   runnerPlayerMovementSpeed: 0
 --- !u!114 &1482435406
 MonoBehaviour:
@@ -362,6 +363,7 @@ MonoBehaviour:
   scenesNames:
   - Pong Scene
   - Breakout Scene
+  - infinite_runner
   mainCam: {fileID: 0}
 --- !u!4 &1482435407
 Transform:
