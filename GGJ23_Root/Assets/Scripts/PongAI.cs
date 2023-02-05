@@ -8,11 +8,13 @@ using DG.Tweening;
 [RequireComponent(typeof(Rigidbody))]
 public class PongAI : MonoBehaviour
 {
+    public Pong pong;
     public List<Transform> bricks = new List<Transform>();
     public List<BrickVisuals> bricksVisuals = new List<BrickVisuals>();
     [Header("Brick Spawning")]
     public float brickSpawnTime;
-    public int bricksPerSpawn;
+    [Min(1)]
+    public int bricksPerSpawn = 1;
     public bool spawnRandomly = false;
     [Header("Visuals")]
     public Gradient bricksColorsOverTime;
@@ -22,14 +24,13 @@ public class PongAI : MonoBehaviour
     private Rigidbody rigidbody;
     private Transform target;
 
-    private Pong pong;
     private List<Transform> hiddenBricks;
     private Transform ogBrick;
     private int spawnedBrickIndex;
     private bool canSpawnBrick;
 
-    private int currentSpawns;
-    private int TotalSpawns => Mathf.CeilToInt(bricks.Count / bricksPerSpawn);
+    //private int currentSpawns;
+    //private int TotalSpawns => Mathf.CeilToInt(bricks.Count / bricksPerSpawn);
 
 
     public Action OnAllBricksSpawned;
@@ -106,10 +107,14 @@ public class PongAI : MonoBehaviour
 
     }
 
-    private void SpawnBricks()
+    private void SpawnBricks(int currentStage, int totalStages)
     {
+        //Debug.Log("SPAWN BRICKS!");
+        //Debug.Log($"stage: {currentStage} total stages: {totalStages} bricks per spawn: {bricksPerSpawn}");
+
         for (int i = 0; i < bricksPerSpawn; i++)
         {
+            //Debug.Log("HIDDEN BRICKS COUNT = " + hiddenBricks.Count);
             if (hiddenBricks.Count == 0) break;
 
             // Spawn randomly or at index 0
@@ -132,12 +137,12 @@ public class PongAI : MonoBehaviour
             //    .Append(currentBrick.DOScale(new Vector3(0.5f, 1.2f, 1.2f), 0.2f))
             //    .Append(currentBrick.DOScale(new Vector3(0.3f, 1f, 1f), 0.3f));
 
+            // What's better ?
             hiddenBricks.RemoveAt(index);
+            //hiddenBricks.Remove(currentBrick);
         }
 
-        currentSpawns++;
-
-        Color currentBricksColor = bricksColorsOverTime.Evaluate((float)currentSpawns / TotalSpawns);
+        Color currentBricksColor = bricksColorsOverTime.Evaluate((float)currentStage / totalStages);
 
         foreach (BrickVisuals brick in bricksVisuals)
         {

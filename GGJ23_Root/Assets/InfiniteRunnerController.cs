@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class InfiniteRunnerController : MonoBehaviour
 {
-    public int track = 1;
+    public WalkerRunnerManager manager;
     public InfiniteRunner infiniteRunner;
     public float speed = 10f;
+    private int track = 1;
 
     void Update()
     {
+        if (!manager.runner) return;
+
         Vector3 pos = transform.position;
 
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
@@ -17,9 +20,9 @@ public class InfiniteRunnerController : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
             track++;
 
-        track = Mathf.Clamp(track, 0, infiniteRunner.tracks.Length-1);
+        track = Mathf.Clamp(track, 0, infiniteRunner.tracks.Length - 1);
 
-        pos.x = Mathf.Lerp(pos.x, track * infiniteRunner.tracks[track].position.x, speed * Time.deltaTime);
+        pos.x = Mathf.Lerp(pos.x, infiniteRunner.tracks[track].position.x, speed * Time.deltaTime);
         transform.position = pos;
     }
 }
