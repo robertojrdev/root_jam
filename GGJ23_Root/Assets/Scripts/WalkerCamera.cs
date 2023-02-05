@@ -150,15 +150,18 @@ public class WalkerCamera : MonoBehaviour
         {
             t += Time.deltaTime;
 
+            if (t > camTransitionSpeed) t = camTransitionSpeed;
+
             camT.position = Vector3.Lerp(camPos, camComputerTarget.position, t / camTransitionSpeed);
             camT.rotation = Quaternion.Lerp(camRot, camComputerTarget.rotation, t / camTransitionSpeed);
             cam.fieldOfView = Mathf.Lerp(fov, computerFov, t / camTransitionSpeed);
 
-            if (Mathf.Abs(cam.fieldOfView - computerFov) < 0.01f)
-                FinishedComputerTransition();
+            //if (Mathf.Abs(cam.fieldOfView - computerFov) < 0.01f)
 
             yield return null;
         }
+
+            //FinishedComputerTransition();
     }
 
     private IEnumerator TransitionToPlayer()
@@ -182,5 +185,7 @@ public class WalkerCamera : MonoBehaviour
 
             yield return null;
         }
+
+        transitionToPlayer = false;
     }
 }
