@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InfiniteRunner : MonoBehaviour
+public class InfiniteRunner : Game
 {
     [Header("Gameplay")]
     public Animator animator;
@@ -14,6 +14,28 @@ public class InfiniteRunner : MonoBehaviour
     [Header("Audio")]
     public AudioSource songAudioSorce;
     private float totalDuration = 69.3f;
+
+    public GameObject brickPrefab;
+
+    protected override void SetupGame()
+    {
+        // setup da transicao
+        // pegar valores instanciar etc
+        foreach(Vector3 brickPos in Whiteboard.instance.brickPositions)
+            Instantiate(brickPrefab, brickPos, Quaternion.identity);
+    }
+
+    protected override void OnStartGame()
+    {
+        // inicia transicao
+        // call start level no fim da transicao
+    }
+
+    protected override void OnFinishGame()
+    {
+        // passar info po proximo jogo
+        // tipo dar skip ao menu na main scene
+    }
 
     void StartLevel()
     {
