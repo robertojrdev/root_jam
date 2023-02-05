@@ -1,8 +1,9 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class Pong : MonoBehaviour
+public class Pong : Game
 {
     private enum PongState
     {
@@ -18,6 +19,7 @@ public class Pong : MonoBehaviour
     private PongState state;
     private Vector3 ballVelocity;
 
+    #region  Unity Lifecycle
     private void Awake()
     {
         ball.onBallCollision += OnBallCollide;
@@ -26,23 +28,29 @@ public class Pong : MonoBehaviour
 
     private void OnEnable()
     {
-        pongAI.OnAllBricksSpawned += OnGameEnd;
+        pongAI.OnAllBricksSpawned += FinishGame;
     }
 
     private void OnDisable()
     {
-        pongAI.OnAllBricksSpawned -= OnGameEnd;
+        pongAI.OnAllBricksSpawned -= FinishGame;
     }
 
-    private IEnumerator Start()
+    protected override void OnStartGame(Game previousGame)
     {
         // Initialize objects
         Initialize();
         // Make sure game doesn't start immediately
-        GameManager.GamePlaying = false;
+        // GameManager.GamePlaying = false;
+        GameManager.GamePlaying = true;
 
         //UIManager.Instance.ShowCountdown(true);
 
+        // StartCoroutine(StartTimer());
+    }
+
+    private IEnumerator StartTimer()
+    {
         // Wait 3 seconds (call some animation that shows this)
         yield return new WaitForSeconds(3);
 
@@ -59,6 +67,17 @@ public class Pong : MonoBehaviour
         var position = ball.Rigidbody.position + movement;
         ball.Rigidbody.MovePosition(position);
     }
+
+    #endregion
+
+    #region Game State
+    protected override void OnFinishGame()
+    {
+        GameManager.GamePlaying = false;
+        Whiteboard.instance.pong_BrickPos = pongAI.transform.position;
+    }
+
+    #endregion
 
     public void Initialize()
     {
@@ -84,11 +103,4 @@ public class Pong : MonoBehaviour
         reflectDirection.z += ySpeed;
         SetBallDirection(reflectDirection);
     }
-
-    private void OnGameEnd()
-    {
-        GameManager.GamePlaying = false;
-        Whiteboard.instance.pong_BrickPos = pongAI.transform.position;
-    }
-
 }

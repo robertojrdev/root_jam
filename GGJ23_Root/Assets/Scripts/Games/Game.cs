@@ -1,18 +1,34 @@
+using System;
 using UnityEngine;
 
 public abstract class Game : MonoBehaviour
 {
-    private void Awake()
-    {
-        
-    }
+    public int stages;
+    protected int currentStage;
+    public Action OnGameStarted;
+    public Action OnStageUpdated;
+    public Action OnGameEnded;
 
-    public abstract void StartGame();
-    public abstract void Update();
-    public abstract void OnFinishGame();
+    public void StartGame(Game previousGame)
+    {
+        OnStartGame(previousGame);
+        OnGameStarted?.Invoke();
+    }
+    protected abstract void OnStartGame(Game previousGame);
+
+    public void StageUpdate()
+    {
+        currentStage++;
+        OnUpdateStage();
+        OnStageUpdated?.Invoke();
+    }
+    protected abstract void OnUpdateStage();
+
 
     public void FinishGame()
     {
         OnFinishGame();
+        OnGameEnded?.Invoke();
     }
+    protected abstract void OnFinishGame();
 }
