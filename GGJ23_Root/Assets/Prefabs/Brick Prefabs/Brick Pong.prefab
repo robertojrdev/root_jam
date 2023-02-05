@@ -1503,6 +1503,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39dfd5b5ca20b3347aa390537d0f332a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pong: {fileID: 0}
   bricks:
   - {fileID: 8232646424387751371}
   - {fileID: 8232646423817058309}
@@ -1539,7 +1540,7 @@ MonoBehaviour:
   - {fileID: 3122223696650527811}
   - {fileID: 3122223696838524178}
   brickSpawnTime: 0
-  bricksPerSpawn: 4
+  bricksPerSpawn: 1
   spawnRandomly: 0
   bricksColorsOverTime:
     serializedVersion: 2
@@ -1570,10 +1571,37 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  onHitScaleDuration: 0.3
+  onHitScaleDuration: 0.5
   onHitScaleCurve:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 7.6017838
+      outSlope: 7.6017838
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.04601107
+    - serializedVersion: 3
+      time: 0.5159676
+      value: 1.1202418
+      inSlope: -2.1718557
+      outSlope: -2.1718557
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.08507241
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
