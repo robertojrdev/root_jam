@@ -52,6 +52,18 @@ public class GameManager : MonoBehaviour
         LoadNextGame();
     }
 
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Y))
+        {
+            if (currentGameId != -1)
+            {
+                var currentGame = loadedGames[scenesNames[currentGameId]];
+                currentGame.RestartGame();
+            }
+        }
+    }
+
     private void OnGameLoaded(Game game)
     {
         loadedGames.Add(game.gameObject.scene.name, game);
