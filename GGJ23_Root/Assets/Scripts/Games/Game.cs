@@ -5,16 +5,22 @@ public abstract class Game : MonoBehaviour
 {
     public int stages;
     protected int currentStage;
-    public Action OnGameStarted;
     public Action OnStageUpdated;
-    public Action OnGameEnded;
 
-    public void StartGame(Game previousGame)
+    private void Awake()
     {
-        OnStartGame(previousGame);
-        OnGameStarted?.Invoke();
+        SetupGame();
+        StartGame();
     }
-    protected virtual void OnStartGame(Game previousGame) { }
+
+    protected virtual void SetupGame() { }
+
+    public void StartGame()
+    {
+        OnStartGame();
+        Events.Instance.onGameGameStarted?.Invoke(this);
+    }
+    protected virtual void OnStartGame() { }
 
     public void StageUpdate()
     {
@@ -28,7 +34,7 @@ public abstract class Game : MonoBehaviour
     public void FinishGame()
     {
         OnFinishGame();
-        OnGameEnded?.Invoke();
+        Events.Instance.onGameEnded?.Invoke(this);
     }
     protected virtual void OnFinishGame() { }
 }

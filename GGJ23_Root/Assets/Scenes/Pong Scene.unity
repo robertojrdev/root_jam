@@ -1287,6 +1287,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01c5280e765ab614ea15dbeab88b87e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stages: 0
   ballInitialPosition: {x: -2, y: 0, z: 0}
   ballSpeed: 10
   player: {fileID: 1657449309}
@@ -2048,6 +2049,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Brick Pong
       objectReference: {fileID: 0}
+    - target: {fileID: 3966392110407380351, guid: 6493cb64763e6cb45bc035a67d3ac319, type: 3}
+      propertyPath: pong
+      value: 
+      objectReference: {fileID: 1090614862}
     - target: {fileID: 3966392110407380351, guid: 6493cb64763e6cb45bc035a67d3ac319, type: 3}
       propertyPath: brickSpawnTime
       value: 0

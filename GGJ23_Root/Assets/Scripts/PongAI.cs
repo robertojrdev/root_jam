@@ -8,6 +8,7 @@ using DG.Tweening;
 [RequireComponent(typeof(Rigidbody))]
 public class PongAI : MonoBehaviour
 {
+    public Pong pong;
     public List<Transform> bricks = new List<Transform>();
     public List<BrickVisuals> bricksVisuals = new List<BrickVisuals>();
     [Header("Brick Spawning")]
@@ -22,7 +23,6 @@ public class PongAI : MonoBehaviour
     private Rigidbody rigidbody;
     private Transform target;
 
-    private Pong pong;
     private List<Transform> hiddenBricks;
     private Transform ogBrick;
     private int spawnedBrickIndex;

@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Pong Scene.unity
     guid: eb44ae9adf7aed04c8f5c35e66ee074d
+  - enabled: 1
+    path: Assets/Scenes/Breakout Scene.unity
+    guid: 1bfae870bc0b6b04c8e4b2fd78319262
   m_configObjects: {}
