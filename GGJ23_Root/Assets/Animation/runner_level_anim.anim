@@ -3068,13 +3068,6 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 69.333336
-    functionName: 
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 69.333336
     functionName: StartWalker
     data: 
     objectReferenceParameter: {fileID: 0}
