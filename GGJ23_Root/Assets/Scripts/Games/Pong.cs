@@ -40,7 +40,7 @@ public class Pong : Game
         timePerStage = gameDuration / stages;
         elapsedTime = 0;
     }
-    
+
     private void FixedUpdate()
     {
         if (!GameManager.GamePlaying) return;
@@ -66,7 +66,7 @@ public class Pong : Game
             StageUpdate();
         }
 
-        if (GameManager.Instance.Mode == Mode.Debug && Input.GetKeyDown(KeyCode.Space))
+        if (GameManager.Instance.Mode == Mode.Debug && Input.GetKeyDown(KeyCode.N))
             FinishGame();
     }
 
@@ -97,9 +97,18 @@ public class Pong : Game
     {
         StartCoroutine(StartGameTimer());
     }
-
+    bool firstPlayFlag = true;
     private IEnumerator StartGameTimer()
     {
+        // Wait for player to press Start on main menu
+        if (firstPlayFlag)
+        {
+            yield return new WaitWhile(() => !Input.GetKeyDown(KeyCode.Space) && !Input.GetKeyDown(KeyCode.Return));
+            firstPlayFlag = false;
+        }
+
+        UIManager.Instance.ShowCountdown(true);
+
         // Wait 3 seconds (call some animation that shows this)
         yield return new WaitForSeconds(3);
 

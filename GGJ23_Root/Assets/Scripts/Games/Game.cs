@@ -34,6 +34,7 @@ public abstract class Game : MonoBehaviour
 
     public void RestartGame()
     {
+        Debug.Log("Restart game");
         OnRestartGame();
     }
 

@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     public string[] scenesNames;
 
     public static bool GamePlaying { get; set; }
-    
+
     private AsyncSceneLoader loader = new AsyncSceneLoader();
 
     public int currentGameId = 0;
@@ -43,9 +43,10 @@ public class GameManager : MonoBehaviour
         {
             yield return null;
         }
+
         loader.ShowScene();
 
-        loader.LoadSceneAsync(scenesNames[currentGameId +1]);
+        loader.LoadSceneAsync(scenesNames[currentGameId + 1]);
     }
 
     private void OnGameEnded(Game obj)
@@ -55,7 +56,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator LoadNextScene()
     {
-        while(loader.ready == false)
+        while (loader.ready == false)
             yield return null;
 
         //show scene already loaded
@@ -66,7 +67,7 @@ public class GameManager : MonoBehaviour
         currentGameId++;
 
         //if the last scene return
-        if(currentGameId +1 >= scenesNames.Length)
+        if (currentGameId + 1 >= scenesNames.Length)
             yield break;
 
         //start loading next scene
