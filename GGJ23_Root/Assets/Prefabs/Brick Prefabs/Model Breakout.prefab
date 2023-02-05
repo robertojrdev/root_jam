@@ -11,6 +11,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: VFX_Breakout_Block
       objectReference: {fileID: 0}
+    - target: {fileID: 5316424534725955468, guid: f0c5cbced06d7c946b21f35d5a07f11b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7844805785245253018, guid: f0c5cbced06d7c946b21f35d5a07f11b, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -76,6 +80,10 @@ PrefabInstance:
     - target: {fileID: 3934483410665663225, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
       propertyPath: m_Name
       value: Model Breakout
+      objectReference: {fileID: 0}
+    - target: {fileID: 4441825750086821372, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6645528180445852198, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
       propertyPath: m_RootOrder
