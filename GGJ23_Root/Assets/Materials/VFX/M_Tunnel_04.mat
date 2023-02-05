@@ -132,14 +132,14 @@ Material:
     - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _ColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
-    - _Color_1: {r: 0.052602768, g: 0, b: 1, a: 0}
+    - _Color_1: {r: 0.7538912, g: 1, b: 0, a: 0}
     - _Color_2: {r: 0, g: 3.0755734, b: 5.3403134, a: 0}
     - _Distortion_Strenght: {r: 0, g: 0, b: 0, a: 0}
     - _Distortion_Texture_Speed: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
     - _Texture_1_Speed: {r: 0, g: 0, b: 0, a: 0}
-    - _Texture_1_Tiling: {r: 4, g: 87.63, b: 0, a: 0}
+    - _Texture_1_Tiling: {r: 4.74, g: 87.63, b: 0, a: 0}
     - _Texture_2_Speed: {r: 0, g: 0, b: 0, a: 0}
     - _Texture_2_Tiling: {r: 1, g: 76.64, b: 0, a: 0}
   m_BuildTextureStacks: []
