@@ -25,7 +25,6 @@ public class PongAI : MonoBehaviour
     private Transform target;
 
     private List<Transform> hiddenBricks;
-    private Transform ogBrick;
     private int spawnedBrickIndex;
     private bool canSpawnBrick;
 
@@ -91,10 +90,21 @@ public class PongAI : MonoBehaviour
         canSpawnBrick = true;
     }
 
-    public void SpawnBrickOnCollision(Collision other)
+    public void OnBallCollision(Collision other)
     {
         if (other.transform != transform)
             return;
+
+        //tou a dormir, po crlh fica assim
+        var visuals = transform.GetChild(0).GetComponent<BrickVisuals>();
+        if(visuals)
+            visuals.OnHit();
+
+        SpawnBrickOnCollision();
+    }    
+    
+    private void SpawnBrickOnCollision()
+    {
         if (!canSpawnBrick)
             return;
         if (hiddenBricks.Count == 0)
@@ -128,7 +138,7 @@ public class PongAI : MonoBehaviour
             currentBrick.transform.localScale = Vector3.zero;
             currentBrick.gameObject.SetActive(true);
 
-            currentBrick.transform.DOScale(new Vector3(0.3f, 1f, 1f), onHitScaleDuration)
+            currentBrick.transform.DOScale(new Vector3(1f, 1f, 1f), onHitScaleDuration)
             .SetEase(onHitScaleCurve);
 
             //DOTween.Sequence()
