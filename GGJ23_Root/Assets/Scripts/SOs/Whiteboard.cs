@@ -7,7 +7,7 @@ using UnityEngine;
 /// <summary>
 /// Use this scriptable object to feed variables between different games
 /// </summary>
-public class Whiteboard : ScriptableSingleton<Whiteboard>
+public class Whiteboard : ScriptableObject
 {
     // NOMENCLATURE RULES:
     // 1 - Start with the corresponding game that feeds the 

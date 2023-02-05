@@ -169,10 +169,17 @@ MonoBehaviour:
   cam: {fileID: 3521477652577786360}
   camPlayerTarget: {fileID: 709923464819468051}
   camComputerTarget: {fileID: 0}
-  camTransitionSpeed: 6
+  camTransitionDuration: 1
+  camTransitionCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   radio: {fileID: 0}
   interactUI: {fileID: 0}
   crosshairUI: {fileID: 0}
+  menuAnim: {fileID: 0}
 --- !u!114 &709923465619905415
 MonoBehaviour:
   m_ObjectHideFlags: 0

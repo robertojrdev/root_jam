@@ -148,7 +148,7 @@ Transform:
   m_GameObject: {fileID: 72117079}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -1.6283326}
-  m_LocalScale: {x: 0.68261236, y: 0.8333333, z: 0.833333}
+  m_LocalScale: {x: 1, y: 1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 732742122}
@@ -1523,6 +1523,30 @@ PrefabInstance:
       propertyPath: camComputerTarget
       value: 
       objectReference: {fileID: 72117080}
+    - target: {fileID: 709923465619905412, guid: 296b677b239fe3f479406e89ed94ef9b, type: 3}
+      propertyPath: camTransitionDuration
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 709923465619905412, guid: 296b677b239fe3f479406e89ed94ef9b, type: 3}
+      propertyPath: camTransitionCurve.m_Curve.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 709923465619905412, guid: 296b677b239fe3f479406e89ed94ef9b, type: 3}
+      propertyPath: camTransitionCurve.m_Curve.Array.data[1].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 709923465619905412, guid: 296b677b239fe3f479406e89ed94ef9b, type: 3}
+      propertyPath: camTransitionCurve.m_Curve.Array.data[1].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 709923465619905412, guid: 296b677b239fe3f479406e89ed94ef9b, type: 3}
+      propertyPath: camTransitionCurve.m_Curve.Array.data[0].inSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 709923465619905412, guid: 296b677b239fe3f479406e89ed94ef9b, type: 3}
+      propertyPath: camTransitionCurve.m_Curve.Array.data[0].outSlope
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 709923465619905413, guid: 296b677b239fe3f479406e89ed94ef9b, type: 3}
       propertyPath: m_RootOrder
       value: 2

@@ -39,16 +39,16 @@ public class InfiniteRunner : Game
         // setup da transicao
         // pegar valores instanciar etc
 
-        for(int i = 0; i < Whiteboard.instance.breakout_LastBricksPos.Count; i++)
+        for(int i = 0; i < GameManager.Instance.whiteboard.breakout_LastBricksPos.Count; i++)
         {
-            startBricks[i] = Instantiate(brickPrefab, Whiteboard.instance.breakout_LastBricksPos[i], Whiteboard.instance.breakout_LastBricksRot[i]).transform;
+            startBricks[i] = Instantiate(brickPrefab, GameManager.Instance.whiteboard.breakout_LastBricksPos[i], GameManager.Instance.whiteboard.breakout_LastBricksRot[i]).transform;
         }
 
         //TODO: ROBERTO SUBSTITUI ESTAS VARIAVEIS pelas que tao comentadas
 
-        cam.transform.position = Whiteboard.instance.breakout_CameraPos;
-        cam.transform.rotation = Whiteboard.instance.breakout_CameraRot;
-        cam.fieldOfView = Whiteboard.instance.breakout_CameraFoV;
+        cam.transform.position = GameManager.Instance.whiteboard.breakout_CameraPos;
+        cam.transform.rotation = GameManager.Instance.whiteboard.breakout_CameraRot;
+        cam.fieldOfView = GameManager.Instance.whiteboard.breakout_CameraFoV;
         
         groundLinesMaterial.color = groundLinesStartColor;
     }
@@ -100,9 +100,9 @@ public class InfiniteRunner : Game
             }
             
             // Transition Camera
-            cam.transform.position = Vector3.Lerp(Whiteboard.instance.breakout_CameraPos, endTransitionCamTarget.position, transtionTime / cameraTransitionDuration);
-            cam.transform.rotation = Quaternion.Slerp(Whiteboard.instance.breakout_CameraRot, endTransitionCamTarget.rotation, transtionTime / cameraTransitionDuration);
-            cam.fieldOfView = Mathf.Lerp(Whiteboard.instance.breakout_CameraFoV, endTransitionCamFoV, transtionTime / cameraTransitionDuration);
+            cam.transform.position = Vector3.Lerp(GameManager.Instance.whiteboard.breakout_CameraPos, endTransitionCamTarget.position, transtionTime / cameraTransitionDuration);
+            cam.transform.rotation = Quaternion.Slerp(GameManager.Instance.whiteboard.breakout_CameraRot, endTransitionCamTarget.rotation, transtionTime / cameraTransitionDuration);
+            cam.fieldOfView = Mathf.Lerp(GameManager.Instance.whiteboard.breakout_CameraFoV, endTransitionCamFoV, transtionTime / cameraTransitionDuration);
 
             // Transition level visuals
             groundLinesMaterial.color = Color.Lerp(groundLinesMaterial.color, groundLinesEndColor, transtionTime / cameraTransitionDuration);
