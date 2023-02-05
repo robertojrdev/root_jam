@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 using DG.Tweening;
+using System.Linq;
 
 public class BreakoutGame : Game
 {
@@ -39,6 +40,8 @@ public class BreakoutGame : Game
     private int currentbricksAlive;
     private int bricksToTriggerNextStage;
 
+    private List<BrickVisuals> bricksVfx = new List<BrickVisuals>();
+
 
     protected override void SetupGame()
     {
@@ -55,6 +58,10 @@ public class BreakoutGame : Game
         foreach (Transform t in brickRows)
         {
             bricksLocalX.Add(t.localPosition.x);
+            BrickVisuals[] bricks = t.GetComponentsInChildren<BrickVisuals>();
+
+            foreach (BrickVisuals bv in bricks)
+                bricksVfx.Add(bv);
         }
 
         initialWallPos = brickRows[0].localPosition;
@@ -134,19 +141,6 @@ public class BreakoutGame : Game
         ballVelocity = direction * ballSpeed;
     }
 
-    private void DespawnBrick(Collision other)
-    {
-        /*
-        Renderer renderer = other.transform.GetChild(0).GetComponent<Renderer>();
-
-        DOTween.Sequence()
-            .Append(renderer.material.DOColor(Color.red, 0f))
-            .Append(other.transform.DOScaleZ(0, 0.1f))
-            .AppendCallback(() => other.gameObject.SetActive(false));*/
-
-        other.gameObject.SetActive(false);
-    }
-
     private void FixedUpdate()
     {
         ball.Rigidbody.velocity = Vector3.zero;
@@ -183,9 +177,27 @@ public class BreakoutGame : Game
         }
     }
 
+    private void DespawnBrick(Collision other)
+    {
+        BrickVisuals bv = other.transform.GetComponentInChildren<BrickVisuals>();
+
+        bv.OnHit();
+        bricksVfx.Remove(bv);
+
+        /*
+        Renderer renderer = other.transform.GetChild(0).GetComponent<Renderer>();
+
+        DOTween.Sequence()
+            .Append(renderer.material.DOColor(Color.red, 0f))
+            .Append(other.transform.DOScaleZ(0, 0.1f))
+            .AppendCallback(() => other.gameObject.SetActive(false));*/
+
+        //other.gameObject.SetActive(false);
+    }
+
     protected override void OnUpdateStage()
     {
-        // ALTERAR VFX
+        // 
 
         print("next Stage");
     }
