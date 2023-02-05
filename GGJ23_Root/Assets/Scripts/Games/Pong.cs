@@ -36,7 +36,7 @@ public class Pong : Game
         ball.Rigidbody.position = ballInitialPosition;
         pongAI.SetTarget(ball.transform);
         SetBallDirection(Vector3.left + Vector3.forward);
-        GameManager.GamePlaying = true;
+        GameManager.GamePlaying = false;
     }
 
     protected override void OnStartGame()

@@ -5,7 +5,7 @@ public abstract class Game : MonoBehaviour
 {
     public int stages;
     protected int currentStage;
-    public Action OnStageUpdated;
+    public Action<int, int> OnStageUpdated;
 
     private void Awake()
     {
@@ -13,6 +13,10 @@ public abstract class Game : MonoBehaviour
         StartGame();
     }
 
+    /// <summary>
+    /// Called when the scene is loaded. 
+    /// Good to get whiteboard values and initialize positions, etc.
+    /// </summary>
     protected virtual void SetupGame() { }
 
     public void StartGame()
@@ -20,13 +24,18 @@ public abstract class Game : MonoBehaviour
         OnStartGame();
         Events.Instance.onGameGameStarted?.Invoke(this);
     }
+
+    /// <summary>
+    /// Called when the previous scene is unloaded and this game should start.
+    /// Transition from previous game to this game should be handled here.
+    /// </summary>
     protected virtual void OnStartGame() { }
 
     public void StageUpdate()
     {
         currentStage++;
         OnUpdateStage();
-        OnStageUpdated?.Invoke();
+        OnStageUpdated?.Invoke(currentStage, stages);
     }
     protected virtual void OnUpdateStage() { }
 
@@ -36,5 +45,10 @@ public abstract class Game : MonoBehaviour
         OnFinishGame();
         Events.Instance.onGameEnded?.Invoke(this);
     }
+
+    /// <summary>
+    /// Called when the game ends. 
+    /// Writing values to the Whiteboard should be handled here.
+    /// </summary>
     protected virtual void OnFinishGame() { }
 }
