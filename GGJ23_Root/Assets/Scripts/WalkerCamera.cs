@@ -27,6 +27,8 @@ public class WalkerCamera : MonoBehaviour
         crosshairUI.SetActive(true);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
     }
 
     // Update is called once per frame
