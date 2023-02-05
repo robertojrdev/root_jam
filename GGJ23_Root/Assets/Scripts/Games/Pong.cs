@@ -22,6 +22,7 @@ public class Pong : Game
     float elapsedTime = 0;
     float timePerStage;
     float gameDuration;
+    public float PercentageTime => elapsedTime / (gameDuration + musicStartDelay);
 
     #region  Unity Lifecycle
 
@@ -35,8 +36,9 @@ public class Pong : Game
         //pongAI.OnAllBricksSpawned -= FinishGame;
     }
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         currentStage = 0;
         timePerStage = gameDuration / stages;
         elapsedTime = 0;

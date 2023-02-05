@@ -14,6 +14,6 @@ public class Radio : MonoBehaviour
             activeSource = 0;
 
         for (int i = 0; i < sources.Length; i++)
-            sources[i].volume = (i == activeSource ? 0.119f : 0f);
+            sources[i].volume = (i == activeSource ? 1f : 0f);
     }
 }

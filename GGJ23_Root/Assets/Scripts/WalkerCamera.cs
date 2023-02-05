@@ -143,9 +143,9 @@ public class WalkerCamera : MonoBehaviour
 
             float percentTime = elapsedTime / camTransitionDuration;
             float t = camTransitionCurve.Evaluate(percentTime);
-            camT.position = Vector3.LerpUnclamped(camPos, camComputerTarget.position, t);
-            camT.rotation = Quaternion.LerpUnclamped(camRot, camComputerTarget.rotation, t);
-            cam.fieldOfView = Mathf.LerpUnclamped(fov, computerFov, t);
+            camT.position = Vector3.Lerp(camPos, camComputerTarget.position, t);
+            camT.rotation = Quaternion.Lerp(camRot, camComputerTarget.rotation, t);
+            cam.fieldOfView = Mathf.Lerp(fov, computerFov, t);
 
             //if (Mathf.Abs(cam.fieldOfView - computerFov) < 0.01f)
 
@@ -171,9 +171,9 @@ public class WalkerCamera : MonoBehaviour
 
             float percentTime = elapsedTime / camTransitionDuration;
             float t = camTransitionCurve.Evaluate(percentTime);
-            camT.position = Vector3.LerpUnclamped(camPos, camPlayerTarget.position, t);
-            camT.rotation = Quaternion.LerpUnclamped(camRot, camPlayerTarget.rotation, t);
-            cam.fieldOfView = Mathf.LerpUnclamped(fov, defaultFov, t);
+            camT.position = Vector3.Lerp(camPos, camPlayerTarget.position, t);
+            camT.rotation = Quaternion.Lerp(camRot, camPlayerTarget.rotation, t);
+            cam.fieldOfView = Mathf.Lerp(fov, defaultFov, t);
 
             //if (Mathf.Abs(cam.fieldOfView - computerFov) < 0.01f)
 

@@ -360,6 +360,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   whiteboard: {fileID: 11400000, guid: cb8c8ca18eb68394ebae0ba0ab509d01, type: 2}
+  settings: {fileID: 1482435405}
   Mode: 0
   scenesNames:
   - Pong Scene

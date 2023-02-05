@@ -100,18 +100,22 @@ public class PongAI : MonoBehaviour
         if (other.transform == transform)
         {
             mainBrick.OnHit(); // Play enemy hit effect
-            
+
             SFXManager.PlaySFX("pong_hit_original");
             // SFXManager.PlaySFX("pong_hit_" + UnityEngine.Random.Range(0, 4));
+
+            pong.ShowChromaticAberration(pong.PercentageTime, 0.2f);
         }
         else if (other.transform.CompareTag("Player"))
         {
             SFXManager.PlaySFX("pong_hit_original");
             // SFXManager.PlaySFX("pong_hit_" + UnityEngine.Random.Range(0, 4));
-            
+
             // play player hit effects
             Debug.Log("PLAYER = null " + player == null);
             player.PlayHitVFX();
+            Debug.Log("INTENSITY = " + pong.PercentageTime);
+            pong.ShowChromaticAberration(pong.PercentageTime, 0.2f);
         }
         else
         {
