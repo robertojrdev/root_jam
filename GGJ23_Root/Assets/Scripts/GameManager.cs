@@ -41,13 +41,14 @@ public class GameManager : MonoBehaviour
     {
         Events.Instance.onGameLoaded += OnGameLoaded;
         Events.Instance.onGameEnded += OnGameEnded;
-
+        UIManager.Instance.ShowLoadingScreen(true);
         //loading all scenes
         for (int i = 0; i < scenesNames.Length; i++)
         {
             yield return loader.LoadSceneAsyncRoutine(scenesNames[i], true);
         }
 
+        UIManager.Instance.ShowLoadingScreen(false);
         LoadNextGame();
     }
 
@@ -63,7 +64,7 @@ public class GameManager : MonoBehaviour
 
     private void LoadNextGame()
     {
-        if(currentGameId != -1)
+        if (currentGameId != -1)
         {
             var currentGame = loadedGames[scenesNames[currentGameId]];
             currentGame.CloseGame();
