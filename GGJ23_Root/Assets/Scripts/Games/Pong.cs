@@ -83,8 +83,8 @@ public class Pong : Game
         ball.onBallCollision += pongAI.OnBallCollision;
 
         player.controller = new PongController();
-        player.position = GameManager.Instance.settings.pongPlayerInitialPosition;
-        ball.Rigidbody.position = GameManager.Instance.settings.pongBallInitialPosition;
+        player.position = Settings.Instance.pongPlayerInitialPosition;
+        ball.Rigidbody.position = Settings.Instance.pongBallInitialPosition;
 
         currentStage = 0;
         timePerStage = gameDuration / stages;

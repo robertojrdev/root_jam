@@ -6,7 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Ball : MonoBehaviour
 {
-    private Rigidbody rb;
+    public Rigidbody rb;
     private Vector3 direction;
     public Action<Collision> onBallCollision;
 
@@ -16,7 +16,7 @@ public class Ball : MonoBehaviour
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        // rb = GetComponent<Rigidbody>();
     }
 
     private void OnCollisionEnter(Collision other)

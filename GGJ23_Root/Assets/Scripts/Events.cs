@@ -12,12 +12,13 @@ public class Events : MonoBehaviour
 
     private void Awake()
     {
-        if(Instance)
+        if(Instance != null)
         {
             Destroy(gameObject);
             return;
         }
 
         Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 }
