@@ -21,7 +21,7 @@ public class UIManager : MonoBehaviour
     }
     public void ShowCountdown(bool show)
     {
-        Debug.Log("Show Countdown " + show);
+        //Debug.Log("Show Countdown " + show);
         countdown.gameObject.SetActive(show);
     }
 

@@ -6,6 +6,7 @@ public abstract class Game : MonoBehaviour
     public int stages;
     protected int currentStage;
     public Action<int, int> OnStageUpdated;
+    public Camera gameCam;
 
     private void Awake()
     {
@@ -23,6 +24,7 @@ public abstract class Game : MonoBehaviour
 
     public void StartGame()
     {
+        GameManager.Instance.mainCam = gameCam;
         SetupGame();
         gameObject.SetActive(true);
         OnStartGame();

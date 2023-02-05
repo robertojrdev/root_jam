@@ -11,6 +11,7 @@ public class Pong : Game
         Game
     }
 
+    public float musicStartDelay = 10f;
     public Player player;
     public Ball ball;
     public PongAI pongAI;
@@ -54,15 +55,17 @@ public class Pong : Game
     private void Update()
     {
         elapsedTime += Time.deltaTime;
-        if (elapsedTime >= gameDuration) FinishGame();
+
+        if (elapsedTime >= gameDuration + musicStartDelay) FinishGame();
 
         if (GameManager.GamePlaying)
         {
             UpdateBallSpeed();
         }
 
-        if (elapsedTime > timePerStage * (currentStage + 1))
+        if (elapsedTime > timePerStage * (currentStage + 1) + musicStartDelay)
         {
+            Debug.Log("Should update stage");
             StageUpdate();
         }
 
@@ -75,7 +78,7 @@ public class Pong : Game
     protected override void SetupGame()
     {
         ball.onBallCollision += OnBallCollide;
-        //ball.onBallCollision += pongAI.OnBallCollision;
+        ball.onBallCollision += pongAI.OnBallCollision;
 
         player.controller = new PongController();
         player.position = Settings.Instance.pongPlayerInitialPosition;
