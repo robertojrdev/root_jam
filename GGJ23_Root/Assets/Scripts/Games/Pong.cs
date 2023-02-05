@@ -80,7 +80,10 @@ public class Pong : Game
     {
         GameManager.GamePlaying = false;
         Whiteboard.instance.pong_BrickPos = pongAI.transform.position;
-    }
+        Whiteboard.instance.pong_BallDirection = ballVelocity.normalized;
+        Whiteboard.instance.pong_BallPosition = ball.transform.position;
+        Whiteboard.instance.pong_PlayerPosition = player.position;
+}
 
     #endregion
 

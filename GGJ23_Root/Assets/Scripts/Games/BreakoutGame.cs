@@ -133,12 +133,15 @@ public class BreakoutGame : Game
 
     private void DespawnBrick(Collision other)
     {
+        /*
         Renderer renderer = other.transform.GetChild(0).GetComponent<Renderer>();
 
         DOTween.Sequence()
             .Append(renderer.material.DOColor(Color.red, 0f))
             .Append(other.transform.DOScaleZ(0, 0.1f))
-            .AppendCallback(() => other.gameObject.SetActive(false));
+            .AppendCallback(() => other.gameObject.SetActive(false));*/
+
+        other.gameObject.SetActive(false);
     }
 
     private void FixedUpdate()
