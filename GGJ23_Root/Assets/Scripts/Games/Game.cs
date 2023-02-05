@@ -9,9 +9,10 @@ public abstract class Game : MonoBehaviour
 
     private void Awake()
     {
+        gameObject.SetActive(false);
         OnStageUpdated = null;
-        SetupGame();
-        StartGame();
+
+        Events.Instance.onGameLoaded?.Invoke(this);
     }
 
     /// <summary>
@@ -22,6 +23,8 @@ public abstract class Game : MonoBehaviour
 
     public void StartGame()
     {
+        SetupGame();
+        gameObject.SetActive(true);
         OnStartGame();
         Events.Instance.onGameGameStarted?.Invoke(this);
     }
@@ -63,4 +66,16 @@ public abstract class Game : MonoBehaviour
     /// Writing values to the Whiteboard should be handled here.
     /// </summary>
     protected virtual void OnFinishGame() { }
+
+    public void CloseGame()
+    {
+        gameObject.SetActive(false);
+        OnGameUnloaded();
+    }
+
+
+    /// <summary>
+    /// This is called when the game is closed, it's meant to set things when removing the game after it's disabled
+    /// </summary>
+    protected virtual void OnGameUnloaded() { }
 }
