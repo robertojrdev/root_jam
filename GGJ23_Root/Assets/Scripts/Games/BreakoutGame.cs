@@ -40,6 +40,7 @@ public class BreakoutGame : Game
     private int currentbricksAlive;
     private int bricksToTriggerNextStage;
 
+    private List<Transform> activeBricks = new List<Transform>();
     private List<BrickVisuals> bricksVfx = new List<BrickVisuals>();
 
 
@@ -58,10 +59,19 @@ public class BreakoutGame : Game
         foreach (Transform t in brickRows)
         {
             bricksLocalX.Add(t.localPosition.x);
+
+            Rigidbody[] brickRbs = t.GetComponentsInChildren<Rigidbody>();
             BrickVisuals[] bricks = t.GetComponentsInChildren<BrickVisuals>();
 
             foreach (BrickVisuals bv in bricks)
+            {
                 bricksVfx.Add(bv);
+            }
+
+            foreach (Rigidbody rb in brickRbs)
+            {
+                activeBricks.Add(rb.GetComponent<Transform>());
+            }
         }
 
         initialWallPos = brickRows[0].localPosition;
@@ -180,9 +190,11 @@ public class BreakoutGame : Game
     private void DespawnBrick(Collision other)
     {
         BrickVisuals bv = other.transform.GetComponentInChildren<BrickVisuals>();
+        Transform t = other.transform;
 
         bv.OnHit();
         bricksVfx.Remove(bv);
+        activeBricks.Remove(t);
 
         /*
         Renderer renderer = other.transform.GetChild(0).GetComponent<Renderer>();
@@ -204,11 +216,28 @@ public class BreakoutGame : Game
 
     protected override void OnFinishGame()
     {
+        print("Finished game!");
         GameManager.GamePlaying = false;
 
-        // DIOGO
-        // TENS DE PASSAR OS VALORES PARA O JOAO PARA ELE FAZER GRANDES COISAS NA CENA DELE.
-        // DESCULPA TUDO O QUE ESTÁ HARD CODED MAS EU TENHO SONO
-        // OBRIGADO PELA COMPREENSÃO
+        // AO FAZER DEBUG A LISTA DE ACTIVE BRICKS PODE TER MUITO MAIS DO QUE 6.
+        // DESTA MANEIRA APENAS FICAM 6 PARA EFEITOS DE TRANSIÇAO MESMO QD ESTAMOS EM DEBUG
+
+        Whiteboard.instance.breakout_LastBricksPos.Clear();
+        Whiteboard.instance.breakout_LastBricksRot.Clear();
+
+        for (int i = 0; i < bricksLeftToWin; i++)
+        {
+            Whiteboard.instance.breakout_LastBricksPos.Add(activeBricks[i].position);
+            Whiteboard.instance.breakout_LastBricksRot.Add(activeBricks[i].rotation);
+        }
+
+        Whiteboard.instance.breakout_CameraPos = gameCam.transform.position;
+        Whiteboard.instance.breakout_CameraRot = gameCam.transform.rotation;
+        Whiteboard.instance.breakout_CameraFoV = gameCam.fieldOfView;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.N)) FinishGame();
     }
 }
