@@ -21,6 +21,7 @@ public class Settings : MonoBehaviour
     public Vector2 breakoutMinMaxTimeToReachMaxSpeed = new Vector2(30, 10);
     public Vector2 breakoutMinMaxSlowestSpeed;
     public Vector2 breakoutMinMaxFastestSpeed;
+    public float breakoutPlayerMovementSpeed = 15;
 
     [Header("Runner")]
     public float runnerPlayerMovementSpeed;

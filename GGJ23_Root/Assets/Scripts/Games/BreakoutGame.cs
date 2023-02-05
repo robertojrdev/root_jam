@@ -128,7 +128,9 @@ public class BreakoutGame : Game
     {
         ballPos = Whiteboard.instance.pong_BallPosition;
         playerPos = Whiteboard.instance.pong_PlayerPosition;
-        ballDirection = Vector3.left + Vector3.forward;
+        int rand = Random.Range(0, 2);
+        Vector3 horizontalDir = rand == 0 ? Vector3.left : Vector3.right;
+        ballDirection = horizontalDir + Vector3.forward;
         currentBallSpeed = Whiteboard.instance.pong_BallSpeed;
         GameManager.GamePlaying = false;
         //UIManager.Instance.ShowCountdown(true);

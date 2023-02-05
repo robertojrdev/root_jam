@@ -17,7 +17,6 @@ public class Player : MonoBehaviour
         }
     }
 
-
     public void PlayHitVFX()
     {
         if (hitVFX != null)
