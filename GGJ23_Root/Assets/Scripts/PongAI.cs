@@ -114,7 +114,6 @@ public class PongAI : MonoBehaviour
             // play player hit effects
             Debug.Log("PLAYER = null " + player == null);
             player.PlayHitVFX();
-            Debug.Log("INTENSITY = " + pong.PercentageTime);
             pong.ShowChromaticAberration(pong.PercentageTime, 0.2f);
         }
         else

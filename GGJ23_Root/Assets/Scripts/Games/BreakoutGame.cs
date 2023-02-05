@@ -234,7 +234,7 @@ public class BreakoutGame : Game
         reflectDirection.z += ySpeed;
         SetBallDirection(reflectDirection);
 
-        if (other.transform.CompareTag("Wall")) 
+        if (other.transform.CompareTag("Wall"))
         {
             SFXManager.PlaySFX("pong_wall" + Random.Range(0, 4));
             CamShake.Shake(gameCam, 0.2f, 0.1f, 8);
@@ -250,7 +250,7 @@ public class BreakoutGame : Game
         DespawnBrick(other);
         currentbricksAlive--;
 
-
+        ShowChromaticAberration(CompletePercentage * 0.8f, 0.2f);
 
         if (currentbricksAlive <= bricksLeftToWin)
         {
