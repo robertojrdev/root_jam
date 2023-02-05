@@ -52,8 +52,9 @@ public class BreakoutGame : Game
 
     #region Unity Lifecycle
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         currentStage = 0;
         elapsedTime = 0;
     }
