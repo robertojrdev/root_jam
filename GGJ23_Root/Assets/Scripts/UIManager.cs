@@ -11,7 +11,7 @@ public class UIManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance)
+        if (Instance != null)
         {
             Debug.LogError("Multiple UI Managers");
             Destroy(gameObject);
@@ -19,6 +19,7 @@ public class UIManager : MonoBehaviour
         }
 
         Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
     public void ShowCountdown(bool show)
     {

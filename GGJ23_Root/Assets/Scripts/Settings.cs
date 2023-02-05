@@ -3,6 +3,8 @@ using UnityEngine;
 [DefaultExecutionOrder(-2)]
 public class Settings : MonoBehaviour
 {
+    public static Settings Instance;
+
     [Header("Pong")]
     public Vector3 pongPlayerInitialPosition;
     public Vector3 pongAIInitialPosition;
@@ -24,4 +26,17 @@ public class Settings : MonoBehaviour
 
     [Header("Runner")]
     public float runnerPlayerMovementSpeed;
+
+    private void Awake()
+    {
+        // if (Instance != null)
+        // {
+        //     Destroy(gameObject);
+        //     return;
+        // }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+        Debug.LogError("SETTINGS IS LOADED CRLH");
+    }
 }

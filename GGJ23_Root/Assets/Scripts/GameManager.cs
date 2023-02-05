@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance)
+        if (Instance != null)
         {
             Debug.LogError("Multiple Game Managers");
             Destroy(gameObject);
@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
         Time.fixedDeltaTime = 1 * 0.02f;
 
         Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     private IEnumerator Start()

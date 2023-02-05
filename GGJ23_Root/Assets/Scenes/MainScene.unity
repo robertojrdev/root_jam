@@ -308,8 +308,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1482435407}
-  - component: {fileID: 1482435406}
   - component: {fileID: 1482435405}
+  - component: {fileID: 1482435406}
   - component: {fileID: 1482435408}
   m_Layer: 0
   m_Name: Manager
@@ -360,6 +360,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   whiteboard: {fileID: 11400000, guid: cb8c8ca18eb68394ebae0ba0ab509d01, type: 2}
+  settings: {fileID: 1482435405}
   Mode: 0
   scenesNames:
   - Pong Scene
