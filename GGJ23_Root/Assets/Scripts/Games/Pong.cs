@@ -20,10 +20,37 @@ public class Pong : Game
     private Vector3 ballVelocity;
 
     #region  Unity Lifecycle
-    private void Awake()
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+            FinishGame();
+    }
+
+    protected override void SetupGame()
     {
         ball.onBallCollision += OnBallCollide;
         ball.onBallCollision += pongAI.SpawnBrickOnCollision;
+
+        player.controller = new PongController();
+        player.position = Settings.Instance.pongPlayerInitialPosition;
+        ball.Rigidbody.position = ballInitialPosition;
+        pongAI.SetTarget(ball.transform);
+        SetBallDirection(Vector3.left + Vector3.forward);
+        GameManager.GamePlaying = false;
+    }
+
+    protected override void OnStartGame()
+    {
+        StartCoroutine(StartGameTimer());
+    }
+
+    private IEnumerator StartGameTimer()
+    {
+        // Wait 3 seconds (call some animation that shows this)
+        yield return new WaitForSeconds(3);
+
+        // Start the game
+        GameManager.GamePlaying = true;
     }
 
     private void OnEnable()
@@ -34,28 +61,6 @@ public class Pong : Game
     private void OnDisable()
     {
         pongAI.OnAllBricksSpawned -= FinishGame;
-    }
-
-    protected override void OnStartGame(Game previousGame)
-    {
-        // Initialize objects
-        Initialize();
-        // Make sure game doesn't start immediately
-        // GameManager.GamePlaying = false;
-        GameManager.GamePlaying = true;
-
-        //UIManager.Instance.ShowCountdown(true);
-
-        // StartCoroutine(StartTimer());
-    }
-
-    private IEnumerator StartTimer()
-    {
-        // Wait 3 seconds (call some animation that shows this)
-        yield return new WaitForSeconds(3);
-
-        // Start the game
-        GameManager.GamePlaying = true;
     }
 
     private void FixedUpdate()
@@ -78,15 +83,6 @@ public class Pong : Game
     }
 
     #endregion
-
-    public void Initialize()
-    {
-        player.controller = new PongController();
-        player.position = Settings.Instance.pongPlayerInitialPosition;
-        ball.Rigidbody.position = ballInitialPosition;
-        pongAI.SetTarget(ball.transform);
-        SetBallDirection(Vector3.left + Vector3.forward);
-    }
 
     public void SetBallDirection(Vector3 direction)
     {

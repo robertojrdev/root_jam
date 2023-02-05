@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class WalkerCamera : MonoBehaviour
 {
+    public WalkerRunnerManager manager;
+
     public float defaultFov, computerFov;
     public Vector2 sens;
     public Transform camT;
@@ -20,7 +22,7 @@ public class WalkerCamera : MonoBehaviour
     private bool transitionToComputer = false;
     private bool transitionToPlayer = false;
 
-    void Start()
+    public void Init()
     {
         crosshairUI.SetActive(true);
         Cursor.lockState = CursorLockMode.Locked;
@@ -30,6 +32,8 @@ public class WalkerCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!manager.walker) return;
+
         timer += Time.deltaTime;
 
         if (transitionToComputer)

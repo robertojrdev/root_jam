@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class WalkerMovement : MonoBehaviour
 {
+    public WalkerRunnerManager manager;
+
     [Header("Settings")]
     public float moveSpeed;
     public Transform orientation;
@@ -22,11 +24,13 @@ public class WalkerMovement : MonoBehaviour
 
     private void Update()
     {
+        if (!manager.walker) return;
         UpdateInput();
     }
 
     private void FixedUpdate()
     {
+        if (!manager.walker) return;
         MovePlayer();
     }
 
