@@ -233,6 +233,7 @@ public class BreakoutGame : Game
 
         reflectDirection.z += ySpeed;
         SetBallDirection(reflectDirection);
+        Debug.Log("Percentage = " + CompletePercentage);
         ShowChromaticAberration(CompletePercentage * 0.8f, 0.2f);
 
         if (other.transform.CompareTag("Wall"))
