@@ -3,43 +3,125 @@ using System.Collections.Generic;
 using System.Collections;
 using DG.Tweening;
 
-public class BreakoutGame : MonoBehaviour
+public class BreakoutGame : Game
 {
-    public Ball ball;
-    public float ballSpeed;
-    public List<Transform> bricks;
+    [Header("References")]
     public Player player;
-    public Vector3 ballInitialPosition;
+    public Ball ball;
+    public Transform gameHolder;
+    public Transform brickFirstRowPivot;
+    public List<Transform> brickRows;
 
+    [Header("Settings")]
+    public float ballSpeed;
+    public float minMaxMovement;
+
+    [Header("Initial Anim Properties")]
+    public float gameTargetXRotationAngle;
+    public float paddlesCenterTime;
+    public float rotationTimer;
+    public float camTargetYPos;
+    public float camMoveTime;
+    public float ballToCenterTime;
+    public Vector3 ballInitPos;
+
+    [Header("End Game Condition")]
+    public float bricksLeftToWin;
+
+
+    private List<float> bricksLocalX = new List<float>();
+    private Vector3 ballDirection;
+    private Vector3 ballPos;
+    private Vector3 playerPos;
     private Vector3 ballVelocity;
+    private Vector3 initialWallPos;
+    private int bricksAlive;
 
-    private void OnEnable()
+    protected override void SetupGame()
     {
+        GameManager.GamePlaying = false;
+        player.controller = new BreakoutController();
+        ((BreakoutController)player.controller).SetMaxMovement(minMaxMovement);
+
+        brickFirstRowPivot.position = Whiteboard.instance.pong_BrickPos;
+        ballPos = Whiteboard.instance.pong_BallPosition;
+        playerPos = Whiteboard.instance.pong_PlayerPosition;
+
+        ballDirection = Whiteboard.instance.pong_BallDirection;
+
+        foreach (Transform t in brickRows)
+        {
+            bricksLocalX.Add(t.localPosition.x);
+        }
+
+        initialWallPos = brickRows[0].localPosition;
+
+        // EU TOU COM SONO E NAO QUERO FAZER MAIS CICLOS PORTANTO FICA AQUI HARD CODED.
+        // JULGUEM-ME SE QUISEREM. VAO PO CARALHO. EU FIZ AS CONTAS E SÃO 136
+        bricksAlive = 136;
+
         ball.onBallCollision += OnBallCollide;
     }
 
-    private IEnumerator Start()
+    protected override void OnStartGame()
     {
-        // Initialize objects
-        Initialize();
-        // Make sure game doesn't start immediately
-        GameManager.GamePlaying = false;
+        StartCoroutine(StartGameTimer());
+    }
 
-        //UIManager.Instance.ShowCountdown(true);
+    private IEnumerator StartGameTimer()
+    {
+        float t = 0;
+        Vector3 ballCurrentPos = ball.transform.localPosition;
 
-        // Wait 3 seconds (call some animation that shows this)
-        yield return new WaitForSeconds(3);
+        DOTween.Sequence()
+            .Append(brickFirstRowPivot.DOMoveZ(0, paddlesCenterTime))
+            .Append(gameHolder.DORotate(new Vector3(0, gameTargetXRotationAngle, 0), rotationTimer))
+            .Join(Camera.main.transform.DOMoveY(camTargetYPos, camMoveTime));
+
+
+        while (t < ballToCenterTime)
+        {
+            t += Time.deltaTime;
+
+            ball.transform.localPosition = Vector3.Lerp(ballCurrentPos, ballInitPos, t / ballToCenterTime);
+
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(1);
+
+        for (int i = 0; i < brickRows.Count; i++)
+        {
+            yield return StartCoroutine(RowDescendRoutine(i));
+        }
+
 
         // Start the game
         GameManager.GamePlaying = true;
+
+
+        SetBallDirection(ballDirection);
     }
 
-    public void Initialize()
+    private IEnumerator RowDescendRoutine(int index)
     {
-        player.controller = new BreakoutController();
-        player.position = Settings.Instance.pongPlayerInitialPosition;
-        ball.Rigidbody.position = ballInitialPosition;
-        SetBallDirection(Vector3.left + Vector3.forward);
+        float t = 0;
+        float wallDescendDuration = 0.1f;
+
+        brickRows[index].localPosition = initialWallPos;
+        brickRows[index].gameObject.SetActive(true);
+        Vector3 initPos = brickRows[index].localPosition;
+        Vector3 destinationPos = new Vector3(bricksLocalX[bricksLocalX.Count - 1 - index], 0, 0);
+
+        while (t < wallDescendDuration)
+        {
+            t += Time.deltaTime;
+            brickRows[index].localPosition = Vector3.Lerp(initPos, destinationPos, t / wallDescendDuration);
+            yield return null;
+        }
+
+        CamShake.Shake(Camera.main, 0.1f, 0.2f, 8);
+        brickRows[index].localPosition = destinationPos;
     }
 
     public void SetBallDirection(Vector3 direction)
@@ -79,5 +161,22 @@ public class BreakoutGame : MonoBehaviour
         if (other.transform.CompareTag("Player")) return;
 
         DespawnBrick(other);
+        bricksAlive--;
+
+        if (bricksAlive <= bricksLeftToWin)
+        {
+            print("acabou crl!!");
+            FinishGame();
+        }
+    }
+    
+    protected override void OnFinishGame()
+    {
+        GameManager.GamePlaying = false;
+
+        // DIOGO
+        // TENS DE PASSAR OS VALORES PARA O JOAO PARA ELE FAZER GRANDES COISAS NA CENA DELE.
+        // DESCULPA TUDO O QUE ESTÁ HARD CODED MAS EU TENHO SONO
+        // OBRIGADO PELA COMPREENSÃO
     }
 }
