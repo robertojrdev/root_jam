@@ -31,6 +31,16 @@ public abstract class Game : MonoBehaviour
     /// </summary>
     protected virtual void OnStartGame() { }
 
+    public void RestartGame()
+    {
+        OnRestartGame();
+    }
+
+    /// <summary>
+    /// Called when the player loses and the game restarts
+    /// </summary>
+    protected virtual void OnRestartGame() { }
+
     public void StageUpdate()
     {
         currentStage++;

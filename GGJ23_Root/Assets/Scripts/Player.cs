@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (controller != null)
+        if (controller != null && GameManager.GamePlaying)
         {
             controller.ApplyMovement(this);
         }

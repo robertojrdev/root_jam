@@ -327,9 +327,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pongPlayerInitialPosition: {x: 8, y: 0, z: 0}
-  pongPlayerMovementMinMaxHeight: 5
+  pongAIInitialPosition: {x: -8, y: 0, z: 0}
+  pongPlayerMovementMinMaxHeight: 4.75
   pongPlayerMovementSpeed: 10
-  pongBallInitialPosition: {x: 0, y: 0, z: 0}
+  pongBallInitialPosition: {x: -2, y: 0, z: 0}
+  pongBallMinMaxSpeed: {x: 10, y: 20}
+  pongGameDuration: 20
   breakoutInitialPlayerPosition:
     position: {x: 0, y: 0, z: 0}
     scale: {x: 0, y: 0, z: 0}

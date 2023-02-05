@@ -97,12 +97,12 @@ public class PongAI : MonoBehaviour
 
         //tou a dormir, po crlh fica assim
         var visuals = transform.GetChild(0).GetComponent<BrickVisuals>();
-        if(visuals)
+        if (visuals)
             visuals.OnHit();
 
         SpawnBrickOnCollision();
-    }    
-    
+    }
+
     private void SpawnBrickOnCollision()
     {
         if (!canSpawnBrick)
@@ -138,7 +138,7 @@ public class PongAI : MonoBehaviour
             currentBrick.transform.localScale = Vector3.zero;
             currentBrick.gameObject.SetActive(true);
 
-            currentBrick.transform.DOScale(new Vector3(1f, 1f, 1f), onHitScaleDuration)
+            currentBrick.transform.DOScale(Vector3.one, onHitScaleDuration)
             .SetEase(onHitScaleCurve);
 
             //DOTween.Sequence()
@@ -151,6 +151,9 @@ public class PongAI : MonoBehaviour
             hiddenBricks.RemoveAt(index);
             //hiddenBricks.Remove(currentBrick);
         }
+
+        transform.DOScale(Vector3.one, onHitScaleDuration)
+            .SetEase(onHitScaleCurve);
 
         Color currentBricksColor = bricksColorsOverTime.Evaluate((float)currentStage / totalStages);
 

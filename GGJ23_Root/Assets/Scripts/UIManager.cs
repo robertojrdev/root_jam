@@ -8,6 +8,17 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private GameObject countdown;
 
+    private void Awake()
+    {
+        if (Instance)
+        {
+            Debug.LogError("Multiple UI Managers");
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+    }
     public void ShowCountdown(bool show)
     {
         countdown.gameObject.SetActive(show);
