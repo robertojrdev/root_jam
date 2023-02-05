@@ -13,6 +13,13 @@ public class Whiteboard : ScriptableSingleton<Whiteboard>
     // 1 - Start with the corresponding game that feeds the 
     //     variable then underscore and the variable name, like so_ <gameName>_exampleVar
     
-    public Vector3 pong_BrickPos;
+
+    // PONG
+    public Vector3 pong_BrickPos; 
+    public Vector3 pong_BallDirection;
+    public Vector3 pong_BallPosition;
+    public Vector3 pong_PlayerPosition;
+
+    // BREAKOUT
     public List<Transform> breakout_LastBricks;
 }
