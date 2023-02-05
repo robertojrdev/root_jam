@@ -10,5 +10,8 @@ public class RunnerController : IController
         pos += movement * direction * Vector3.right;
         pos.x = Mathf.Clamp(pos.z, -1f, 1f);
         player.position = pos;
+
+        //TODO PLAY SFX DE QUANDO SE MOVE O PLAYER DE um lado po outro crly: WOOOSH
+
     }
 }

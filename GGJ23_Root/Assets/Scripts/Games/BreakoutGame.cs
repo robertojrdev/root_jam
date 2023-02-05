@@ -230,8 +230,16 @@ public class BreakoutGame : Game
         reflectDirection.z += ySpeed;
         SetBallDirection(reflectDirection);
 
-        if (other.transform.CompareTag("Wall")) return;
-        if (other.transform.CompareTag("Player")) return;
+        if (other.transform.CompareTag("Wall")) 
+        {
+            SFXManager.PlaySFX("pong_wall" + Random.Range(0, 4));
+            return;
+        }
+        if (other.transform.CompareTag("Player"))
+        {
+            SFXManager.PlaySFX("pong_hit_" + Random.Range(0, 4));
+            return;
+        }
 
         DespawnBrick(other);
         currentbricksAlive--;
@@ -262,6 +270,8 @@ public class BreakoutGame : Game
         bv.Show(false);
         bricksVfx.Remove(bv);
         activeBricks.Remove(t);
+
+        SFXManager.PlaySFX("break_" + Random.Range(0, 8));
 
         /*
         Renderer renderer = other.transform.GetChild(0).GetComponent<Renderer>();
