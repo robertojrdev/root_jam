@@ -86,7 +86,7 @@ public class BreakoutGame : Game
         DOTween.Sequence()
             .Append(brickFirstRowPivot.DOMoveZ(0, paddlesCenterTime))
             .Append(gameHolder.DORotate(new Vector3(0, gameTargetXRotationAngle, 0), rotationTimer))
-            .Join(Camera.main.transform.DOMoveY(camTargetYPos, camMoveTime));
+            .Join(gameCam.transform.DOMoveY(camTargetYPos, camMoveTime));
 
 
         while (t < ballToCenterTime)

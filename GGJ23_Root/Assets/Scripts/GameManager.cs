@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     public Mode Mode = Mode.Release;
     public string[] scenesNames;
+    public Camera mainCam;
 
     public static bool GamePlaying { get; set; }
 
