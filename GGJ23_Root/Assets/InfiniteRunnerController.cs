@@ -15,10 +15,23 @@ public class InfiniteRunnerController : MonoBehaviour
 
         Vector3 pos = transform.position;
 
+        bool moved = false;
+
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            moved = true;
             track--;
+        }
         else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            moved = true;
             track++;
+        }
+
+        if(moved)
+        {
+            SFXManager.PlaySFX("runner_woosh_" + Random.Range(0, 3));
+        }
 
         track = Mathf.Clamp(track, 0, infiniteRunner.tracks.Length - 1);
 
