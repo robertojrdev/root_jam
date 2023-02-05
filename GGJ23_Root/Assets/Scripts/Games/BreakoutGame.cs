@@ -245,7 +245,7 @@ public class BreakoutGame : Game
         {
             SFXManager.PlaySFX("pong_hit_" + Random.Range(0, 4));
             CamShake.Shake(gameCam, 0.2f, 0.1f, 8);
-            return
+            return;
         }
 
         DespawnBrick(other);
