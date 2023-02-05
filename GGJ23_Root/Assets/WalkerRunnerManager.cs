@@ -15,6 +15,7 @@ public class WalkerRunnerManager : MonoBehaviour
     [Header("Components")]
     public WalkerCamera wCam;
     public WalkerMovement wMove;
+    public GameObject vfx;
     //public Camera cam;
 
     public void StartWalker()
@@ -23,6 +24,7 @@ public class WalkerRunnerManager : MonoBehaviour
         walker = true;
 
         wCam.Init();
+        vfx.gameObject.SetActive(false);
     }
 
     //private void Update()

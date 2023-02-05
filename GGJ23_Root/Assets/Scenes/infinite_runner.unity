@@ -6972,6 +6972,7 @@ MonoBehaviour:
   transitionSlider: 0
   wCam: {fileID: 1882657107}
   wMove: {fileID: 1882657106}
+  vfx: {fileID: 2097850941}
 --- !u!114 &632567431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22389,6 +22390,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 632567427}
     m_Modifications:
+    - target: {fileID: 584325096, guid: 082e78bc855b0a643909010a11851c17, type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3665550201302330596, guid: 082e78bc855b0a643909010a11851c17, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -22442,6 +22447,11 @@ PrefabInstance:
 --- !u!4 &2097850940 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3665550201302330596, guid: 082e78bc855b0a643909010a11851c17, type: 3}
+  m_PrefabInstance: {fileID: 2097850939}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2097850941 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3665550201302330597, guid: 082e78bc855b0a643909010a11851c17, type: 3}
   m_PrefabInstance: {fileID: 2097850939}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2098461788

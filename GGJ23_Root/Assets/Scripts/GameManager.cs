@@ -35,6 +35,9 @@ public class GameManager : MonoBehaviour
             return;
         }
 
+        Time.timeScale = 1;
+        Time.fixedDeltaTime = 1 * 0.02f;
+
         Instance = this;
     }
 
@@ -55,7 +58,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Y))
+        if (Input.GetKeyDown(KeyCode.Y))
         {
             if (currentGameId != -1)
             {
