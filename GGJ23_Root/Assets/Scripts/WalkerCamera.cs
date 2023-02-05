@@ -25,6 +25,8 @@ public class WalkerCamera : MonoBehaviour
     private float timer = 0.0f;
     private bool transitionToComputer = false;
     private bool transitionToPlayer = false;
+    private bool transitionHappening = false;
+    float t = 0;
 
     public void Init()
     {
@@ -42,8 +44,10 @@ public class WalkerCamera : MonoBehaviour
 
         timer += Time.deltaTime;
 
+        
         if (transitionToComputer)
         {
+            /*
             print("transitionToComputer");
 
             camT.position = Vector3.Lerp(camT.position, camComputerTarget.position, camTransitionSpeed * Time.deltaTime);
@@ -51,10 +55,11 @@ public class WalkerCamera : MonoBehaviour
             cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, computerFov, camTransitionSpeed * Time.deltaTime);
 
             if (Mathf.Abs(cam.fieldOfView - computerFov) < 0.01f)
-                FinishedComputerTransition();
+                FinishedComputerTransition(); */
         }
         else if(transitionToPlayer)
         {
+            /*
             print("transitionToPlayer");
             camT.position = Vector3.Lerp(camT.position, camPlayerTarget.position, camTransitionSpeed * Time.deltaTime);
             camT.rotation = Quaternion.Lerp(camT.rotation, camPlayerTarget.rotation, camTransitionSpeed * Time.deltaTime);
@@ -64,7 +69,7 @@ public class WalkerCamera : MonoBehaviour
             {
                 crosshairUI.SetActive(true);
                 transitionToPlayer = false;
-            }
+            } */
         }
         else
         {
@@ -114,6 +119,9 @@ public class WalkerCamera : MonoBehaviour
     private void InteractComputer()
     {
         transitionToComputer = true;
+
+        StartCoroutine(TransitionToComputer());
+
         GetComponent<WalkerMovement>().DisableMovement();
         interactUI.text = "";
         crosshairUI.SetActive(false);
@@ -123,9 +131,61 @@ public class WalkerCamera : MonoBehaviour
     {
         transitionToComputer = false;
         transitionToPlayer = true;
+
+        StartCoroutine(TransitionToPlayer());
+
         crosshairUI.SetActive(false);
         menuAnim.Play("close menu");
         GetComponent<WalkerMovement>().EnableMovememt();
     }
 
+    private IEnumerator TransitionToComputer()
+    {
+        t = 0f;
+        Vector3 camPos = camT.position;
+        Quaternion camRot = camT.rotation;
+        float fov = cam.fieldOfView;
+
+        while (t < camTransitionSpeed)
+        {
+            t += Time.deltaTime;
+
+            if (t > camTransitionSpeed) t = camTransitionSpeed;
+
+            camT.position = Vector3.Lerp(camPos, camComputerTarget.position, t / camTransitionSpeed);
+            camT.rotation = Quaternion.Lerp(camRot, camComputerTarget.rotation, t / camTransitionSpeed);
+            cam.fieldOfView = Mathf.Lerp(fov, computerFov, t / camTransitionSpeed);
+
+            //if (Mathf.Abs(cam.fieldOfView - computerFov) < 0.01f)
+
+            yield return null;
+        }
+
+            //FinishedComputerTransition();
+    }
+
+    private IEnumerator TransitionToPlayer()
+    {
+        t = 0f;
+        Vector3 camPos = camT.position;
+        Quaternion camRot = camT.rotation;
+        float fov = cam.fieldOfView;
+
+        while(t < camTransitionSpeed)
+        {
+            camT.position = Vector3.Lerp(camPos, camPlayerTarget.position, t / camTransitionSpeed);
+            camT.rotation = Quaternion.Lerp(camRot, camPlayerTarget.rotation, t / camTransitionSpeed);
+            cam.fieldOfView = Mathf.Lerp(fov, defaultFov, t / camTransitionSpeed);
+
+            if (Mathf.Abs(cam.fieldOfView - defaultFov) < 0.01f)
+            {
+                crosshairUI.SetActive(true);
+                transitionToPlayer = false;
+            }
+
+            yield return null;
+        }
+
+        transitionToPlayer = false;
+    }
 }

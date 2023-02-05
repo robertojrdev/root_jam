@@ -336,7 +336,7 @@ MonoBehaviour:
   pongPlayerMovementSpeed: 12
   pongBallInitialPosition: {x: -2, y: 0, z: 0}
   pongBallMinMaxSpeed: {x: 10, y: 20}
-  pongGameDuration: 78
+  pongGameDuration: 93
   breakoutInitialPlayerPosition:
     position: {x: 0, y: 0, z: 0}
     scale: {x: 0, y: 0, z: 0}
