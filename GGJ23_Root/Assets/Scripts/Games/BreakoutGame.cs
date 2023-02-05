@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 using DG.Tweening;
+using System.Linq;
 
 public class BreakoutGame : Game
 {
@@ -35,7 +36,12 @@ public class BreakoutGame : Game
     private Vector3 playerPos;
     private Vector3 ballVelocity;
     private Vector3 initialWallPos;
-    private int bricksAlive;
+    private int initialBricksAlive;
+    private int currentbricksAlive;
+    private int bricksToTriggerNextStage;
+
+    private List<BrickVisuals> bricksVfx = new List<BrickVisuals>();
+
 
     protected override void SetupGame()
     {
@@ -52,13 +58,17 @@ public class BreakoutGame : Game
         foreach (Transform t in brickRows)
         {
             bricksLocalX.Add(t.localPosition.x);
+            BrickVisuals[] bricks = t.GetComponentsInChildren<BrickVisuals>();
+
+            foreach (BrickVisuals bv in bricks)
+                bricksVfx.Add(bv);
         }
 
         initialWallPos = brickRows[0].localPosition;
 
-        // EU TOU COM SONO E NAO QUERO FAZER MAIS CICLOS PORTANTO FICA AQUI HARD CODED.
-        // JULGUEM-ME SE QUISEREM. VAO PO CARALHO. EU FIZ AS CONTAS E SÃO 136
-        bricksAlive = 136;
+        initialBricksAlive = brickRows[0].childCount * brickRows.Count;
+        currentbricksAlive = initialBricksAlive;
+        bricksToTriggerNextStage = initialBricksAlive - (initialBricksAlive / stages);
 
         ball.onBallCollision += OnBallCollide;
     }
@@ -131,19 +141,6 @@ public class BreakoutGame : Game
         ballVelocity = direction * ballSpeed;
     }
 
-    private void DespawnBrick(Collision other)
-    {
-        /*
-        Renderer renderer = other.transform.GetChild(0).GetComponent<Renderer>();
-
-        DOTween.Sequence()
-            .Append(renderer.material.DOColor(Color.red, 0f))
-            .Append(other.transform.DOScaleZ(0, 0.1f))
-            .AppendCallback(() => other.gameObject.SetActive(false));*/
-
-        other.gameObject.SetActive(false);
-    }
-
     private void FixedUpdate()
     {
         ball.Rigidbody.velocity = Vector3.zero;
@@ -164,15 +161,47 @@ public class BreakoutGame : Game
         if (other.transform.CompareTag("Player")) return;
 
         DespawnBrick(other);
-        bricksAlive--;
+        currentbricksAlive--;
 
-        if (bricksAlive <= bricksLeftToWin)
+        if (currentbricksAlive <= bricksLeftToWin)
         {
             print("acabou crl!!");
             FinishGame();
+            return;
+        }
+
+        if (currentbricksAlive == bricksToTriggerNextStage)
+        {
+            bricksToTriggerNextStage -= (initialBricksAlive / stages);
+            StageUpdate();
         }
     }
-    
+
+    private void DespawnBrick(Collision other)
+    {
+        BrickVisuals bv = other.transform.GetComponentInChildren<BrickVisuals>();
+
+        bv.OnHit();
+        bricksVfx.Remove(bv);
+
+        /*
+        Renderer renderer = other.transform.GetChild(0).GetComponent<Renderer>();
+
+        DOTween.Sequence()
+            .Append(renderer.material.DOColor(Color.red, 0f))
+            .Append(other.transform.DOScaleZ(0, 0.1f))
+            .AppendCallback(() => other.gameObject.SetActive(false));*/
+
+        //other.gameObject.SetActive(false);
+    }
+
+    protected override void OnUpdateStage()
+    {
+        // 
+
+        print("next Stage");
+    }
+
     protected override void OnFinishGame()
     {
         GameManager.GamePlaying = false;

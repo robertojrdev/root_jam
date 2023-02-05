@@ -15,7 +15,7 @@ public class BrickVisuals : MonoBehaviour
 
     public void OnHit()
     {
-        hitEffects.Play();
+        if (hitEffects) hitEffects.Play();
     }
 
     public void UpdateColor(Color color, float blendTime = 0)

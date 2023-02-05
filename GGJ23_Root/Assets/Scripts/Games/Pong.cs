@@ -19,18 +19,26 @@ public class Pong : Game
     private float currentBallSpeed;
     private float minBallSpeed, maxBallSpeed;
     float elapsedTime = 0;
+    float timePerStage;
     float gameDuration;
 
     #region  Unity Lifecycle
 
     private void OnEnable()
     {
-        pongAI.OnAllBricksSpawned += FinishGame;
+        //pongAI.OnAllBricksSpawned += FinishGame;
     }
 
     private void OnDisable()
     {
-        pongAI.OnAllBricksSpawned -= FinishGame;
+        //pongAI.OnAllBricksSpawned -= FinishGame;
+    }
+
+    private void Start()
+    {
+        currentStage = 0;
+        timePerStage = gameDuration / stages;
+        elapsedTime = 0;
     }
 
     private void FixedUpdate()
@@ -45,12 +53,20 @@ public class Pong : Game
 
     private void Update()
     {
+        elapsedTime += Time.deltaTime;
+        if (elapsedTime >= gameDuration) FinishGame();
+
         if (GameManager.GamePlaying)
         {
             UpdateBallSpeed();
         }
 
-        if (GameManager.Instance.Mode == Mode.Debug && Input.GetKeyDown(KeyCode.Space))
+        if (elapsedTime > timePerStage * (currentStage + 1))
+        {
+            StageUpdate();
+        }
+
+        if (GameManager.Instance.Mode == Mode.Debug && Input.GetKeyDown(KeyCode.N))
             FinishGame();
     }
 
@@ -59,11 +75,14 @@ public class Pong : Game
     protected override void SetupGame()
     {
         ball.onBallCollision += OnBallCollide;
-        ball.onBallCollision += pongAI.OnBallCollision;
+        //ball.onBallCollision += pongAI.OnBallCollision;
 
         player.controller = new PongController();
         player.position = Settings.Instance.pongPlayerInitialPosition;
         ball.Rigidbody.position = Settings.Instance.pongBallInitialPosition;
+
+        currentStage = 0;
+        timePerStage = gameDuration / stages;
         elapsedTime = 0;
         gameDuration = Settings.Instance.pongGameDuration;
         minBallSpeed = Settings.Instance.pongBallMinMaxSpeed.x;
@@ -78,9 +97,18 @@ public class Pong : Game
     {
         StartCoroutine(StartGameTimer());
     }
-
+    bool firstPlayFlag = true;
     private IEnumerator StartGameTimer()
     {
+        // Wait for player to press Start on main menu
+        if (firstPlayFlag)
+        {
+            yield return new WaitWhile(() => !Input.GetKeyDown(KeyCode.Space) && !Input.GetKeyDown(KeyCode.Return));
+            firstPlayFlag = false;
+        }
+
+        UIManager.Instance.ShowCountdown(true);
+
         // Wait 3 seconds (call some animation that shows this)
         yield return new WaitForSeconds(3);
 
@@ -112,7 +140,6 @@ public class Pong : Game
 
     public void UpdateBallSpeed()
     {
-        elapsedTime += Time.deltaTime;
         float percentTime = elapsedTime / gameDuration;
         currentBallSpeed = Mathf.Lerp(minBallSpeed, maxBallSpeed, percentTime);
     }
@@ -128,7 +155,7 @@ public class Pong : Game
         // Lose condition
         if (other.gameObject.CompareTag("Bounds"))
         {
-            Debug.Log("Should end game");
+            Debug.Log("Should lose game");
             RestartGame();
             return;
         }
