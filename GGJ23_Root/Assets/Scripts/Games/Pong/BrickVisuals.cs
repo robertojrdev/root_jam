@@ -1,17 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
 public class BrickVisuals : MonoBehaviour
 {
     public MeshRenderer rend;
+    public ParticleSystem hitEffects;
 
     private Material mat;
 
     private void Awake()
     {
         mat = rend.material;
+    }
+
+    public void OnHit()
+    {
+        hitEffects.Play();
     }
 
     public void UpdateColor(Color color, float blendTime = 0)
