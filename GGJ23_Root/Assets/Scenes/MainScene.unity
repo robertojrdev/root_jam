@@ -456,7 +456,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a32778349c2ebb428a29bf7a9928f86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Mode: 1
+  Mode: 0
   scenesNames:
   - Pong Scene
   - Breakout Scene
