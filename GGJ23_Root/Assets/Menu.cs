@@ -1,13 +1,18 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
 {
+    public bool fakeVersion = false;
     public Transform[] buttons;
     public Transform selector;
     private int option = 0;
+    public WalkerCamera walkerCamera;
 
     public void Update()
     {
+        if (GetComponent<CanvasGroup>().alpha < 1f) return;
+
         if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
             option = 1;
         else if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
@@ -24,13 +29,23 @@ public class Menu : MonoBehaviour
     {
         if(option == 0)
         {
-            // play
-            print("play");
+            if (fakeVersion)
+                SceneManager.LoadScene("MainScene");
+            else
+                GetComponent<Animator>().Play("close menu");
         }
         else if(option == 1)
         {
-            // quit
-            print("quit");
+            //quit
+            if (fakeVersion)
+            {
+                GetComponent<Animator>().Play("close menu");
+
+                if (walkerCamera)
+                    walkerCamera.PCtoWalkingSimTransition();
+            }
+            else
+                Application.Quit();
         }
     }
 }

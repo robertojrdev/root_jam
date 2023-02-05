@@ -10,6 +10,7 @@ public class WalkerMovement : MonoBehaviour
     public float moveSpeed;
     public Transform orientation;
     public bool lockInput = false;
+    public GameObject walkerObj;
 
     private Vector2 input;
     private Vector3 moveDir;
@@ -56,7 +57,17 @@ public class WalkerMovement : MonoBehaviour
 
     public void DisableMovement()
     {
+        lockInput = true;
+        rb.velocity = Vector3.zero;
+        rb.isKinematic = true;
+        walkerObj.SetActive(false);
+    }
+
+    public void EnableMovememt()
+    {
         lockInput = false;
         rb.velocity = Vector3.zero;
+        rb.isKinematic = false;
+        walkerObj.SetActive(true);
     }
 }

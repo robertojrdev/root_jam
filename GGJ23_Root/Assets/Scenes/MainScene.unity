@@ -205,6 +205,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 2156078240213354273, guid: 43e40799b37d7e54db35fc4ccbd62980, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2156078240213354284, guid: 43e40799b37d7e54db35fc4ccbd62980, type: 3}
       propertyPath: m_Camera
       value: 
@@ -397,7 +401,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5034625396886944783, guid: 50b3d134b8d74cd4e892f955d9aa4a2c, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 50b3d134b8d74cd4e892f955d9aa4a2c, type: 3}
@@ -460,6 +464,7 @@ MonoBehaviour:
   scenesNames:
   - Pong Scene
   - Breakout Scene
+  - infinite_runner
   currentGameId: 0
 --- !u!4 &1482435407
 Transform:

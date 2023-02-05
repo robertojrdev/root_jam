@@ -19,6 +19,7 @@ public class WalkerCamera : MonoBehaviour
     [Header("UI")]
     public TextMeshProUGUI interactUI;
     public GameObject crosshairUI;
+    public Animator menuAnim;
     
     private Vector2 rot;
     private float timer = 0.0f;
@@ -43,21 +44,18 @@ public class WalkerCamera : MonoBehaviour
 
         if (transitionToComputer)
         {
+            print("transitionToComputer");
+
             camT.position = Vector3.Lerp(camT.position, camComputerTarget.position, camTransitionSpeed * Time.deltaTime);
             camT.rotation = Quaternion.Lerp(camT.rotation, camComputerTarget.rotation, camTransitionSpeed * Time.deltaTime);
             cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, computerFov, camTransitionSpeed * Time.deltaTime);
 
             if (Mathf.Abs(cam.fieldOfView - computerFov) < 0.01f)
                 FinishedComputerTransition();
-
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                transitionToComputer = false;
-                transitionToPlayer = true;
-            }
         }
         else if(transitionToPlayer)
         {
+            print("transitionToPlayer");
             camT.position = Vector3.Lerp(camT.position, camPlayerTarget.position, camTransitionSpeed * Time.deltaTime);
             camT.rotation = Quaternion.Lerp(camT.rotation, camPlayerTarget.rotation, camTransitionSpeed * Time.deltaTime);
             cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, defaultFov, camTransitionSpeed * Time.deltaTime);
@@ -108,8 +106,9 @@ public class WalkerCamera : MonoBehaviour
 
     public void FinishedComputerTransition()
     {
-        crosshairUI.SetActive(true);
         // finished computer transition
+        crosshairUI.SetActive(false);
+        menuAnim.Play("start menu");
     }
 
     private void InteractComputer()
@@ -117,5 +116,16 @@ public class WalkerCamera : MonoBehaviour
         transitionToComputer = true;
         GetComponent<WalkerMovement>().DisableMovement();
         interactUI.text = "";
+        crosshairUI.SetActive(false);
     }
+
+    public void PCtoWalkingSimTransition()
+    {
+        transitionToComputer = false;
+        transitionToPlayer = true;
+        crosshairUI.SetActive(false);
+        menuAnim.Play("close menu");
+        GetComponent<WalkerMovement>().EnableMovememt();
+    }
+
 }
