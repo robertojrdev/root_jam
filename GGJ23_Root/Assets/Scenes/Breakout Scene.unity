@@ -300,6 +300,7 @@ MonoBehaviour:
   - {fileID: 362260601}
   - {fileID: 1207086272}
   - {fileID: 1950228537}
+  killerFlash: {fileID: 983187426}
   minMaxMovement: 8.8
   gameTargetXRotationAngle: 90
   paddlesCenterTime: 1
@@ -1293,11 +1294,36 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6205441364076272060, guid: 5adf4bfa7d9d53247881270e30710bcf, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6699334717197729155, guid: 5adf4bfa7d9d53247881270e30710bcf, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6699334717197729155, guid: 5adf4bfa7d9d53247881270e30710bcf, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6699334717197729155, guid: 5adf4bfa7d9d53247881270e30710bcf, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6699334717197729155, guid: 5adf4bfa7d9d53247881270e30710bcf, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5adf4bfa7d9d53247881270e30710bcf, type: 3}
 --- !u!4 &983187425 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3544507562825759043, guid: 5adf4bfa7d9d53247881270e30710bcf, type: 3}
+  m_PrefabInstance: {fileID: 983187424}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &983187426 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 6699334717197729155, guid: 5adf4bfa7d9d53247881270e30710bcf, type: 3}
   m_PrefabInstance: {fileID: 983187424}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1175213876

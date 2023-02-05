@@ -84,6 +84,8 @@ MonoBehaviour:
     audio: {fileID: 8300000, guid: c8a288363f00d2a4082741a84e528bf6, type: 3}
   - id: runner_woosh_2
     audio: {fileID: 8300000, guid: f4d8e921b60a09b40bfb40b36a887ca5, type: 3}
+  - id: breakout_fail
+    audio: {fileID: 8300000, guid: b17f2227d51e61d4896c9149e2a5e9c0, type: 3}
 --- !u!82 &375432033659493369
 AudioSource:
   m_ObjectHideFlags: 0

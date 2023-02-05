@@ -12,6 +12,7 @@ public class BreakoutGame : Game
     public Transform gameHolder;
     public Transform brickFirstRowPivot;
     public List<Transform> brickRows;
+    public ParticleSystem killerFlash;
 
     [Header("Settings")]
     public float minMaxMovement;
@@ -219,7 +220,10 @@ public class BreakoutGame : Game
         // Lose condition
         if (other.gameObject.CompareTag("Bounds"))
         {
-            Debug.Log("Should lose game");
+            CamShake.Shake(gameCam, 0.2f, 0.8f, 10);
+            killerFlash.Play();
+            SFXManager.PlaySFX("breakout_fail");
+
             RestartGame();
             return;
         }
