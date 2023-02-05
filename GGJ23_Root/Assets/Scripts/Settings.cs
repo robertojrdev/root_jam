@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[DefaultExecutionOrder(-2)]
 public class Settings : MonoBehaviour
 {
     public static Settings Instance { get; private set; }
