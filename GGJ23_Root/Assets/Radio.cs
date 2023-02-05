@@ -5,7 +5,7 @@ using UnityEngine;
 public class Radio : MonoBehaviour
 {
     public AudioSource[] sources;
-    private int activeSource = 0;
+    private int activeSource = -1;
 
     public void Interact()
     {
