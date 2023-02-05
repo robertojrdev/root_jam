@@ -111,10 +111,10 @@ public class BreakoutGame : Game
         currentbricksAlive = initialBricksAlive;
         bricksToTriggerNextStage = initialBricksAlive - (initialBricksAlive / stages);
 
-        minMaxTimeToMaxSpeed = Settings.Instance.breakoutMinMaxTimeToReachMaxSpeed;
+        minMaxTimeToMaxSpeed = GameManager.Instance.settings.breakoutMinMaxTimeToReachMaxSpeed;
         timeToMaxSpeed = minMaxTimeToMaxSpeed.x;
-        minMaxSlowSpeed = Settings.Instance.breakoutMinMaxSlowestSpeed;
-        minMaxFastSpeed = Settings.Instance.breakoutMinMaxFastestSpeed;
+        minMaxSlowSpeed = GameManager.Instance.settings.breakoutMinMaxSlowestSpeed;
+        minMaxFastSpeed = GameManager.Instance.settings.breakoutMinMaxFastestSpeed;
         elapsedTime = 0;
 
         ball.onBallCollision += OnBallCollide;

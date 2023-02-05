@@ -81,15 +81,15 @@ public class Pong : Game
         ball.onBallCollision += pongAI.OnBallCollision;
 
         player.controller = new PongController();
-        player.position = Settings.Instance.pongPlayerInitialPosition;
-        ball.Rigidbody.position = Settings.Instance.pongBallInitialPosition;
+        player.position = GameManager.Instance.settings.pongPlayerInitialPosition;
+        ball.Rigidbody.position = GameManager.Instance.settings.pongBallInitialPosition;
 
         currentStage = 0;
         timePerStage = gameDuration / stages;
         elapsedTime = 0;
-        gameDuration = Settings.Instance.pongGameDuration;
-        minBallSpeed = Settings.Instance.pongBallMinMaxSpeed.x;
-        maxBallSpeed = Settings.Instance.pongBallMinMaxSpeed.y;
+        gameDuration = GameManager.Instance.settings.pongGameDuration;
+        minBallSpeed = GameManager.Instance.settings.pongBallMinMaxSpeed.x;
+        maxBallSpeed = GameManager.Instance.settings.pongBallMinMaxSpeed.y;
         currentBallSpeed = minBallSpeed;
         SetBallDirection(Vector3.left + Vector3.forward);
         pongAI.SetTarget(ball.transform);
@@ -121,8 +121,8 @@ public class Pong : Game
 
     protected override void OnRestartGame()
     {
-        player.position = Settings.Instance.pongPlayerInitialPosition;
-        ball.Rigidbody.position = Settings.Instance.pongBallInitialPosition;
+        player.position = GameManager.Instance.settings.pongPlayerInitialPosition;
+        ball.Rigidbody.position = GameManager.Instance.settings.pongBallInitialPosition;
         SetBallDirection(Vector3.left + Vector3.forward);
         GameManager.GamePlaying = false;
         UIManager.Instance.ShowCountdown(true);

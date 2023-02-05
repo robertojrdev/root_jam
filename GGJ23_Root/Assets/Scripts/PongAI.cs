@@ -84,7 +84,7 @@ public class PongAI : MonoBehaviour
         dir = Vector3.ClampMagnitude(dir, 1);
 
         // Move the rigidbody in that direction with a constant speed
-        rigidbody.MovePosition(transform.position + dir * Settings.Instance.pongPlayerMovementSpeed * 1.5f * Time.deltaTime);
+        rigidbody.MovePosition(transform.position + dir * GameManager.Instance.settings.pongPlayerMovementSpeed * 1.5f * Time.deltaTime);
     }
 
     private IEnumerator SpawnBrickTimer()

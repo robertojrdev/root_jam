@@ -3,7 +3,7 @@ diff a/GGJ23_Root/Assets/Scripts/GameManager.cs b/GGJ23_Root/Assets/Scripts/Game
  
      private void Start()
      {
--        player.position = Settings.Instance.pongPlayerInitialPosition;
+-        player.position = GameManager.Instance.settings.pongPlayerInitialPosition;
          player.controller = new RunnerController();
      }
  }

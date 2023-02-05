@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     public Whiteboard whiteboard;
+    public Settings settings;
     public Mode Mode = Mode.Release;
     public string[] scenesNames;
     public Camera mainCam;

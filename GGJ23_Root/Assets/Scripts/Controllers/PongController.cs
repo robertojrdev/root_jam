@@ -6,10 +6,10 @@ public class PongController : IController
     {
 
         var pos = player.position;
-        var movement = Settings.Instance.pongPlayerMovementSpeed * Time.deltaTime;
+        var movement = GameManager.Instance.settings.pongPlayerMovementSpeed * Time.deltaTime;
         var direction = Input.GetAxisRaw("Vertical");
         pos += movement * direction * Vector3.forward;
-        pos.z = Mathf.Clamp(pos.z, -Settings.Instance.pongPlayerMovementMinMaxHeight, Settings.Instance.pongPlayerMovementMinMaxHeight);
+        pos.z = Mathf.Clamp(pos.z, -GameManager.Instance.settings.pongPlayerMovementMinMaxHeight, GameManager.Instance.settings.pongPlayerMovementMinMaxHeight);
         player.position = pos;
     }
 }
