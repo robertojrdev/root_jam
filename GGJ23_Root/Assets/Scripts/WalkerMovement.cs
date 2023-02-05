@@ -65,9 +65,12 @@ public class WalkerMovement : MonoBehaviour
 
     public void EnableMovememt()
     {
+        print("crl");
+
         lockInput = false;
         rb.velocity = Vector3.zero;
         rb.isKinematic = false;
         walkerObj.SetActive(true);
+        rb.constraints = RigidbodyConstraints.FreezeAll;
     }
 }

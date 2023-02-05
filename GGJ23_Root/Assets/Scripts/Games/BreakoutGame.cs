@@ -38,6 +38,7 @@ public class BreakoutGame : Game
     private int currentbricksAlive;
     private int bricksToTriggerNextStage;
 
+    private List<Transform> activeBricks = new List<Transform>();
     private List<BrickVisuals> bricksVfx = new List<BrickVisuals>();
 
     float CompletePercentage => 1 - currentbricksAlive / initialBricksAlive;
@@ -66,6 +67,7 @@ public class BreakoutGame : Game
 
     private void Update()
     {
+        if (GameManager.Instance.Mode == Mode.Debug && Input.GetKeyDown(KeyCode.N)) FinishGame();
         UpdateTimeBasedParameters();
     }
 
@@ -87,10 +89,19 @@ public class BreakoutGame : Game
         foreach (Transform t in brickRows)
         {
             bricksLocalX.Add(t.localPosition.x);
+
+            Rigidbody[] brickRbs = t.GetComponentsInChildren<Rigidbody>();
             BrickVisuals[] bricks = t.GetComponentsInChildren<BrickVisuals>();
 
             foreach (BrickVisuals bv in bricks)
+            {
                 bricksVfx.Add(bv);
+            }
+
+            foreach (Rigidbody rb in brickRbs)
+            {
+                activeBricks.Add(rb.GetComponent<Transform>());
+            }
         }
 
         initialWallPos = brickRows[0].localPosition;
@@ -155,7 +166,7 @@ public class BreakoutGame : Game
                 yield return StartCoroutine(RowDescendRoutine(i));
             }
         }
-        
+
         // Start the game
         GameManager.GamePlaying = true;
 
@@ -243,10 +254,12 @@ public class BreakoutGame : Game
     {
         Debug.Log("COLLIDED WITH " + other.gameObject.name);
         BrickVisuals bv = other.transform.GetComponentInChildren<BrickVisuals>();
-        Debug.Log("VISUALS = " + bv.gameObject.name);
+
+        Transform t = other.transform;
         bv.OnHit();
         bv.Show(false);
         bricksVfx.Remove(bv);
+        activeBricks.Remove(t);
 
         /*
         Renderer renderer = other.transform.GetChild(0).GetComponent<Renderer>();
@@ -268,11 +281,25 @@ public class BreakoutGame : Game
 
     protected override void OnFinishGame()
     {
+        print("Finished game!");
         GameManager.GamePlaying = false;
 
-        // DIOGO
-        // TENS DE PASSAR OS VALORES PARA O JOAO PARA ELE FAZER GRANDES COISAS NA CENA DELE.
-        // DESCULPA TUDO O QUE EST� HARD CODED MAS EU TENHO SONO
-        // OBRIGADO PELA COMPREENS�O
+
+        // AO FAZER DEBUG A LISTA DE ACTIVE BRICKS PODE TER MUITO MAIS DO QUE 6.
+        // DESTA MANEIRA APENAS FICAM 6 PARA EFEITOS DE TRANSI�AO MESMO QD ESTAMOS EM DEBUG
+
+        Whiteboard.instance.breakout_LastBricksPos.Clear();
+        Whiteboard.instance.breakout_LastBricksRot.Clear();
+
+        for (int i = 0; i < bricksLeftToWin; i++)
+        {
+            Whiteboard.instance.breakout_LastBricksPos.Add(activeBricks[i].position);
+            Whiteboard.instance.breakout_LastBricksRot.Add(activeBricks[i].rotation);
+        }
+
+        Whiteboard.instance.breakout_CameraPos = gameCam.transform.position;
+        Whiteboard.instance.breakout_CameraRot = gameCam.transform.rotation;
+        Whiteboard.instance.breakout_CameraFoV = gameCam.fieldOfView;
     }
+
 }
