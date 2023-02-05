@@ -173,7 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edcf5f96c7acc0f4188252429fa78575, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stages: 0
+  stages: 8
   player: {fileID: 1657449309}
   ball: {fileID: 848075400}
   gameHolder: {fileID: 183972766}
