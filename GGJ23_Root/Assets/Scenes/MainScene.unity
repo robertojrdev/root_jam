@@ -358,8 +358,6 @@ MonoBehaviour:
   scenesNames:
   - Pong Scene
   - Breakout Scene
-  - infinite_runner
-  currentGameId: 0
 --- !u!4 &1482435407
 Transform:
   m_ObjectHideFlags: 0
