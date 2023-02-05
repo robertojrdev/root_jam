@@ -16,9 +16,9 @@ public class Whiteboard : ScriptableSingleton<Whiteboard>
 
     // PONG
     public Vector3 pong_BrickPos;
-    public Vector3 pong_BallDirection;
     public Vector3 pong_BallPosition;
     public Vector3 pong_PlayerPosition;
+    public float pong_BallSpeed;
 
     // BREAKOUT
     public List<Transform> breakout_LastBricks;
