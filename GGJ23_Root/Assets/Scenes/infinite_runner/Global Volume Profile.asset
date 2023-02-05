@@ -34,7 +34,7 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 0.9
   intensity:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0
   scatter:
     m_OverrideState: 0
@@ -260,7 +260,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   active: 1
   intensity:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0
 --- !u!114 &9079580479244667436
 MonoBehaviour:
@@ -276,7 +276,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   active: 1
   distance:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0
   cropToFit:
     m_OverrideState: 0
