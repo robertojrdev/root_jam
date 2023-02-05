@@ -6,11 +6,14 @@ public abstract class Game : MonoBehaviour
     public int stages;
     protected int currentStage;
     public Action<int, int> OnStageUpdated;
+    public Camera gameCam;
 
     private void Awake()
     {
-        SetupGame();
-        StartGame();
+        gameObject.SetActive(false);
+        OnStageUpdated = null;
+
+        Events.Instance.onGameLoaded?.Invoke(this);
     }
 
     /// <summary>
@@ -21,6 +24,9 @@ public abstract class Game : MonoBehaviour
 
     public void StartGame()
     {
+        GameManager.Instance.mainCam = gameCam;
+        SetupGame();
+        gameObject.SetActive(true);
         OnStartGame();
         Events.Instance.onGameGameStarted?.Invoke(this);
     }
@@ -33,6 +39,7 @@ public abstract class Game : MonoBehaviour
 
     public void RestartGame()
     {
+        Debug.Log("Restart game");
         OnRestartGame();
     }
 
@@ -61,4 +68,16 @@ public abstract class Game : MonoBehaviour
     /// Writing values to the Whiteboard should be handled here.
     /// </summary>
     protected virtual void OnFinishGame() { }
+
+    public void CloseGame()
+    {
+        gameObject.SetActive(false);
+        OnGameUnloaded();
+    }
+
+
+    /// <summary>
+    /// This is called when the game is closed, it's meant to set things when removing the game after it's disabled
+    /// </summary>
+    protected virtual void OnGameUnloaded() { }
 }

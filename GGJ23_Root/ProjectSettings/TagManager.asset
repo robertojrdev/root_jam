@@ -9,6 +9,7 @@ TagManager:
   - Computer
   - Radio
   - Bounds
+  - MainBrick
   layers:
   - Default
   - TransparentFX

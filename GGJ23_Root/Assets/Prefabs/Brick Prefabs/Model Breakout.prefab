@@ -1,5 +1,67 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &7026925576047056495
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 3306628850151322090}
+    m_Modifications:
+    - target: {fileID: 5316424534725955468, guid: f0c5cbced06d7c946b21f35d5a07f11b, type: 3}
+      propertyPath: m_Name
+      value: VFX_Breakout_Block
+      objectReference: {fileID: 0}
+    - target: {fileID: 7844805785245253018, guid: f0c5cbced06d7c946b21f35d5a07f11b, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7844805785245253018, guid: f0c5cbced06d7c946b21f35d5a07f11b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7844805785245253018, guid: f0c5cbced06d7c946b21f35d5a07f11b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7844805785245253018, guid: f0c5cbced06d7c946b21f35d5a07f11b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7844805785245253018, guid: f0c5cbced06d7c946b21f35d5a07f11b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7844805785245253018, guid: f0c5cbced06d7c946b21f35d5a07f11b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7844805785245253018, guid: f0c5cbced06d7c946b21f35d5a07f11b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7844805785245253018, guid: f0c5cbced06d7c946b21f35d5a07f11b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7844805785245253018, guid: f0c5cbced06d7c946b21f35d5a07f11b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7844805785245253018, guid: f0c5cbced06d7c946b21f35d5a07f11b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 7844805785245253018, guid: f0c5cbced06d7c946b21f35d5a07f11b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f0c5cbced06d7c946b21f35d5a07f11b, type: 3}
+--- !u!198 &8838141522200856366 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1955623780618195265, guid: f0c5cbced06d7c946b21f35d5a07f11b, type: 3}
+  m_PrefabInstance: {fileID: 7026925576047056495}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8203915576574297036
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7,9 +69,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 373175409431715924, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
+      propertyPath: hitEffects
+      value: 
+      objectReference: {fileID: 8838141522200856366}
     - target: {fileID: 3934483410665663225, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
       propertyPath: m_Name
-      value: Model Infinite
+      value: Model Breakout
       objectReference: {fileID: 0}
     - target: {fileID: 6645528180445852198, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
       propertyPath: m_RootOrder
@@ -59,5 +125,14 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 9e33d59358e15164dbaf600365a12de2, type: 2}
+    - target: {fileID: 8858869306019498401, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
+--- !u!4 &3306628850151322090 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6645528180445852198, guid: e9d52087b02308242a8fea16e4f6ad18, type: 3}
+  m_PrefabInstance: {fileID: 8203915576574297036}
+  m_PrefabAsset: {fileID: 0}

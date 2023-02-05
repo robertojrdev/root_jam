@@ -9,14 +9,16 @@ using DG.Tweening;
 public class PongAI : MonoBehaviour
 {
     public Pong pong;
-    public List<Transform> bricks = new List<Transform>();
-    public List<BrickVisuals> bricksVisuals = new List<BrickVisuals>();
+    public Player player;
+    public BrickVisuals mainBrick;
+    public List<BrickVisuals> bricks = new List<BrickVisuals>();
     [Header("Brick Spawning")]
     public float brickSpawnTime;
     [Min(1)]
     public int bricksPerSpawn = 1;
     public bool spawnRandomly = false;
     [Header("Visuals")]
+    public bool updateBricksColorsOverTime;
     public Gradient bricksColorsOverTime;
     public float onHitScaleDuration = 0.3f;
     public AnimationCurve onHitScaleCurve;
@@ -24,7 +26,7 @@ public class PongAI : MonoBehaviour
     private Rigidbody rigidbody;
     private Transform target;
 
-    private List<Transform> hiddenBricks;
+    private List<BrickVisuals> hiddenBricks;
     private int spawnedBrickIndex;
     private bool canSpawnBrick;
 
@@ -38,24 +40,26 @@ public class PongAI : MonoBehaviour
     {
         rigidbody = GetComponent<Rigidbody>();
         rigidbody.isKinematic = false;
-        hiddenBricks = new List<Transform>(bricks);
+        hiddenBricks = new List<BrickVisuals>(bricks);
+        hiddenBricks.RemoveAt(0);
+        HideBricks();
 
         StartCoroutine(SpawnBrickTimer());
     }
 
     private void OnEnable()
     {
-        pong.OnStageUpdated += SpawnBricks;
+        pong.OnStageUpdated += OnStageUpdate;
     }
 
     private void OnDisable()
     {
-        pong.OnStageUpdated -= SpawnBricks;
+        pong.OnStageUpdated -= OnStageUpdate;
     }
 
     private void HideBricks()
     {
-        foreach (Transform brick in bricks) brick.gameObject.SetActive(false);
+        foreach (BrickVisuals brick in hiddenBricks) brick.Show(false);
     }
     public void SetTarget(Transform target)
     {
@@ -92,35 +96,34 @@ public class PongAI : MonoBehaviour
 
     public void OnBallCollision(Collision other)
     {
-        if (other.transform != transform)
-            return;
+        Debug.Log("");
+        if (other.transform == transform)
+        {
+            mainBrick.OnHit(); // Play enemy hit effect
 
-        //tou a dormir, po crlh fica assim
-        var visuals = transform.GetChild(0).GetComponent<BrickVisuals>();
-        if (visuals)
-            visuals.OnHit();
-
-        SpawnBrickOnCollision();
+        }
+        else if (other.transform.CompareTag("Player"))
+        {
+            // play player hit effects
+        }
     }
 
-    private void SpawnBrickOnCollision()
+    public void OnStageUpdate(int stage, int totalStages)
     {
-        if (!canSpawnBrick)
-            return;
-        if (hiddenBricks.Count == 0)
-        {
-            OnAllBricksSpawned?.Invoke();
-        }
-        else pong.StageUpdate(); // THIS WILL BE MOVED TO SOME OTHER LOGIC THAT CHANGES THE STAGE
+        Debug.Log("Should");
 
-        //SpawnBricks();
-
+        SpawnBricks(stage, totalStages);
     }
 
     private void SpawnBricks(int currentStage, int totalStages)
     {
-        //Debug.Log("SPAWN BRICKS!");
-        //Debug.Log($"stage: {currentStage} total stages: {totalStages} bricks per spawn: {bricksPerSpawn}");
+
+        if (hiddenBricks.Count == 0)
+        {
+            OnAllBricksSpawned?.Invoke();
+        }
+        Debug.Log("SPAWN BRICKS!");
+        Debug.Log($"stage: {currentStage} total stages: {totalStages} bricks per spawn: {bricksPerSpawn}");
 
         for (int i = 0; i < bricksPerSpawn; i++)
         {
@@ -133,10 +136,10 @@ public class PongAI : MonoBehaviour
             // SPAWN BRICK
             //hiddenBricks[rand].gameObject.SetActive(true);
 
-            Transform currentBrick = hiddenBricks[index];
+            BrickVisuals currentBrick = hiddenBricks[index];
 
             currentBrick.transform.localScale = Vector3.zero;
-            currentBrick.gameObject.SetActive(true);
+            currentBrick.Show(true);
 
             currentBrick.transform.DOScale(Vector3.one, onHitScaleDuration)
             .SetEase(onHitScaleCurve);
@@ -157,10 +160,11 @@ public class PongAI : MonoBehaviour
 
         Color currentBricksColor = bricksColorsOverTime.Evaluate((float)currentStage / totalStages);
 
-        foreach (BrickVisuals brick in bricksVisuals)
-        {
-            // set the brick color
-            brick.UpdateColor(currentBricksColor);
-        }
+        if (updateBricksColorsOverTime)
+            foreach (BrickVisuals brick in bricks)
+            {
+                // set the brick color
+                brick.UpdateColor(currentBricksColor);
+            }
     }
 }

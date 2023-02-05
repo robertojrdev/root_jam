@@ -22,7 +22,7 @@ public class Ball : MonoBehaviour
     private void OnCollisionEnter(Collision other)
     {
         if (collidedObjects.Contains(other.transform)) return;
-        Debug.Log("BALL COLLIDED WITH " + other.gameObject.name);
+        //Debug.Log("BALL COLLIDED WITH " + other.gameObject.name);
         collidedObjects.Add(other.transform);
         onBallCollision?.Invoke(other);
     }
