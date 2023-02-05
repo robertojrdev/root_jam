@@ -19,20 +19,28 @@ public class Pong : Game
     private float currentBallSpeed;
     private float minBallSpeed, maxBallSpeed;
     float elapsedTime = 0;
+    float timePerStage;
     float gameDuration;
 
     #region  Unity Lifecycle
 
     private void OnEnable()
     {
-        pongAI.OnAllBricksSpawned += FinishGame;
+        //pongAI.OnAllBricksSpawned += FinishGame;
     }
 
     private void OnDisable()
     {
-        pongAI.OnAllBricksSpawned -= FinishGame;
+        //pongAI.OnAllBricksSpawned -= FinishGame;
     }
 
+    private void Start()
+    {
+        currentStage = 0;
+        timePerStage = gameDuration / stages;
+        elapsedTime = 0;
+    }
+    
     private void FixedUpdate()
     {
         if (!GameManager.GamePlaying) return;
@@ -45,9 +53,17 @@ public class Pong : Game
 
     private void Update()
     {
+        elapsedTime += Time.deltaTime;
+        if (elapsedTime >= gameDuration) FinishGame();
+
         if (GameManager.GamePlaying)
         {
             UpdateBallSpeed();
+        }
+
+        if (elapsedTime > timePerStage * (currentStage + 1))
+        {
+            StageUpdate();
         }
 
         if (GameManager.Instance.Mode == Mode.Debug && Input.GetKeyDown(KeyCode.Space))
@@ -59,11 +75,14 @@ public class Pong : Game
     protected override void SetupGame()
     {
         ball.onBallCollision += OnBallCollide;
-        ball.onBallCollision += pongAI.OnBallCollision;
+        //ball.onBallCollision += pongAI.OnBallCollision;
 
         player.controller = new PongController();
         player.position = Settings.Instance.pongPlayerInitialPosition;
         ball.Rigidbody.position = Settings.Instance.pongBallInitialPosition;
+
+        currentStage = 0;
+        timePerStage = gameDuration / stages;
         elapsedTime = 0;
         gameDuration = Settings.Instance.pongGameDuration;
         minBallSpeed = Settings.Instance.pongBallMinMaxSpeed.x;
@@ -112,7 +131,6 @@ public class Pong : Game
 
     public void UpdateBallSpeed()
     {
-        elapsedTime += Time.deltaTime;
         float percentTime = elapsedTime / gameDuration;
         currentBallSpeed = Mathf.Lerp(minBallSpeed, maxBallSpeed, percentTime);
     }
@@ -128,7 +146,7 @@ public class Pong : Game
         // Lose condition
         if (other.gameObject.CompareTag("Bounds"))
         {
-            Debug.Log("Should end game");
+            Debug.Log("Should lose game");
             RestartGame();
             return;
         }

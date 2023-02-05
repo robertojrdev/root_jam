@@ -627,7 +627,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01c5280e765ab614ea15dbeab88b87e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stages: 5
+  stages: 8
   player: {fileID: 1657449309}
   ball: {fileID: 654024775}
   pongAI: {fileID: 3348871514169848414}

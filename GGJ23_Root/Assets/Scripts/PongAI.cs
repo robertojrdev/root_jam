@@ -9,6 +9,7 @@ using DG.Tweening;
 public class PongAI : MonoBehaviour
 {
     public Pong pong;
+    public BrickVisuals mainBrick;
     public List<Transform> bricks = new List<Transform>();
     public List<BrickVisuals> bricksVisuals = new List<BrickVisuals>();
     [Header("Brick Spawning")]
@@ -45,12 +46,12 @@ public class PongAI : MonoBehaviour
 
     private void OnEnable()
     {
-        pong.OnStageUpdated += SpawnBricks;
+        pong.OnStageUpdated += OnStageUpdate;
     }
 
     private void OnDisable()
     {
-        pong.OnStageUpdated -= SpawnBricks;
+        pong.OnStageUpdated -= OnStageUpdate;
     }
 
     private void HideBricks()
@@ -90,15 +91,9 @@ public class PongAI : MonoBehaviour
         canSpawnBrick = true;
     }
 
-    public void OnBallCollision(Collision other)
+    public void OnStageUpdate(int stage, int totalStages)
     {
-        if (other.transform != transform)
-            return;
-
-        //tou a dormir, po crlh fica assim
-        var visuals = transform.GetChild(0).GetComponent<BrickVisuals>();
-        if (visuals)
-            visuals.OnHit();
+        if (mainBrick != null) mainBrick.OnHit();
 
         SpawnBrickOnCollision();
     }
@@ -111,10 +106,6 @@ public class PongAI : MonoBehaviour
         {
             OnAllBricksSpawned?.Invoke();
         }
-        else pong.StageUpdate(); // THIS WILL BE MOVED TO SOME OTHER LOGIC THAT CHANGES THE STAGE
-
-        //SpawnBricks();
-
     }
 
     private void SpawnBricks(int currentStage, int totalStages)

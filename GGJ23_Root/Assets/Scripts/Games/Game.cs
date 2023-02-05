@@ -9,6 +9,7 @@ public abstract class Game : MonoBehaviour
 
     private void Awake()
     {
+        OnStageUpdated = null;
         SetupGame();
         StartGame();
     }
