@@ -167,8 +167,16 @@ public class BreakoutGame : Game
         reflectDirection.z += ySpeed;
         SetBallDirection(reflectDirection);
 
-        if (other.transform.CompareTag("Wall")) return;
-        if (other.transform.CompareTag("Player")) return;
+        if (other.transform.CompareTag("Wall")) 
+        {
+            SFXManager.PlaySFX("pong_wall" + Random.Range(0, 4));
+            return;
+        }
+        if (other.transform.CompareTag("Player"))
+        {
+            SFXManager.PlaySFX("pong_hit_" + Random.Range(0, 4));
+            return;
+        }
 
         DespawnBrick(other);
         currentbricksAlive--;
@@ -196,6 +204,8 @@ public class BreakoutGame : Game
         bricksVfx.Remove(bv);
         activeBricks.Remove(t);
 
+        SFXManager.PlaySFX("break_" + Random.Range(0, 8));
+
         /*
         Renderer renderer = other.transform.GetChild(0).GetComponent<Renderer>();
 
@@ -220,7 +230,7 @@ public class BreakoutGame : Game
         GameManager.GamePlaying = false;
 
         // AO FAZER DEBUG A LISTA DE ACTIVE BRICKS PODE TER MUITO MAIS DO QUE 6.
-        // DESTA MANEIRA APENAS FICAM 6 PARA EFEITOS DE TRANSIÇAO MESMO QD ESTAMOS EM DEBUG
+        // DESTA MANEIRA APENAS FICAM 6 PARA EFEITOS DE TRANSIï¿½AO MESMO QD ESTAMOS EM DEBUG
 
         Whiteboard.instance.breakout_LastBricksPos.Clear();
         Whiteboard.instance.breakout_LastBricksRot.Clear();

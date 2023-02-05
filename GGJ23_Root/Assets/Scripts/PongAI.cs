@@ -100,12 +100,25 @@ public class PongAI : MonoBehaviour
         if (other.transform == transform)
         {
             mainBrick.OnHit(); // Play enemy hit effect
-
+            
+            SFXManager.PlaySFX("pong_hit_original");
+            // SFXManager.PlaySFX("pong_hit_" + UnityEngine.Random.Range(0, 4));
         }
         else if (other.transform.CompareTag("Player"))
         {
+            SFXManager.PlaySFX("pong_hit_original");
+            // SFXManager.PlaySFX("pong_hit_" + UnityEngine.Random.Range(0, 4));
+            
             // play player hit effects
         }
+        else
+        {
+            //PLAY SFX DE QUANDO SE ACERTA A PAREDE
+            SFXManager.PlaySFX("pong_wall_original");
+            // SFXManager.PlaySFX("pong_wall");
+        }
+
+        //else quando bate na parede e play qquando quiser
     }
 
     public void OnStageUpdate(int stage, int totalStages)
@@ -117,6 +130,8 @@ public class PongAI : MonoBehaviour
 
     private void SpawnBricks(int currentStage, int totalStages)
     {
+        //PLAY SFX DE popup de um brick novo: popupClones
+        SFXManager.PlaySFX("pong_popup_clones");
 
         if (hiddenBricks.Count == 0)
         {
