@@ -13,14 +13,15 @@ public class WalkerCamera : MonoBehaviour
     public Transform camT;
     public Camera cam;
     public Transform camPlayerTarget, camComputerTarget;
-    public float camTransitionSpeed = 1f;
+    public float camTransitionDuration = 1f;
+    public AnimationCurve camTransitionCurve;
     public Radio radio;
 
     [Header("UI")]
     public TextMeshProUGUI interactUI;
     public GameObject crosshairUI;
     public Animator menuAnim;
-    
+
     private Vector2 rot;
     private float timer = 0.0f;
     private bool transitionToComputer = false;
@@ -28,8 +29,11 @@ public class WalkerCamera : MonoBehaviour
     private bool transitionHappening = false;
     float t = 0;
 
+    bool canMove = true;
+
     public void Init()
     {
+        canMove = true;
         crosshairUI.SetActive(true);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -44,34 +48,16 @@ public class WalkerCamera : MonoBehaviour
 
         timer += Time.deltaTime;
 
-        
+
         if (transitionToComputer)
         {
-            /*
-            print("transitionToComputer");
-
-            camT.position = Vector3.Lerp(camT.position, camComputerTarget.position, camTransitionSpeed * Time.deltaTime);
-            camT.rotation = Quaternion.Lerp(camT.rotation, camComputerTarget.rotation, camTransitionSpeed * Time.deltaTime);
-            cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, computerFov, camTransitionSpeed * Time.deltaTime);
-
-            if (Mathf.Abs(cam.fieldOfView - computerFov) < 0.01f)
-                FinishedComputerTransition(); */
+        
         }
-        else if(transitionToPlayer)
+        else if (transitionToPlayer)
         {
-            /*
-            print("transitionToPlayer");
-            camT.position = Vector3.Lerp(camT.position, camPlayerTarget.position, camTransitionSpeed * Time.deltaTime);
-            camT.rotation = Quaternion.Lerp(camT.rotation, camPlayerTarget.rotation, camTransitionSpeed * Time.deltaTime);
-            cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, defaultFov, camTransitionSpeed * Time.deltaTime);
 
-            if(Mathf.Abs(cam.fieldOfView - defaultFov) < 0.01f)
-            {
-                crosshairUI.SetActive(true);
-                transitionToPlayer = false;
-            } */
         }
-        else
+        else if (canMove)
         {
             float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sens.x;
             float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sens.y;
@@ -97,7 +83,7 @@ public class WalkerCamera : MonoBehaviour
                         interactUI.text = "[E] to Interact";
                         if (Input.GetKeyDown(KeyCode.E))
                             InteractComputer();
-                    } 
+                    }
                     else if (hit.collider.CompareTag("Radio"))
                     {
                         interactUI.text = "[E] to Interact";
@@ -118,6 +104,7 @@ public class WalkerCamera : MonoBehaviour
 
     private void InteractComputer()
     {
+        canMove = false;
         transitionToComputer = true;
 
         StartCoroutine(TransitionToComputer());
@@ -129,7 +116,8 @@ public class WalkerCamera : MonoBehaviour
 
     public void PCtoWalkingSimTransition()
     {
-        transitionToComputer = false;
+        canMove = false;
+        //transitionToComputer = false;
         transitionToPlayer = true;
 
         StartCoroutine(TransitionToPlayer());
@@ -141,47 +129,53 @@ public class WalkerCamera : MonoBehaviour
 
     private IEnumerator TransitionToComputer()
     {
-        t = 0f;
         Vector3 camPos = camT.position;
         Quaternion camRot = camT.rotation;
         float fov = cam.fieldOfView;
 
-        while (t < camTransitionSpeed)
+        float elapsedTime = 0;
+
+        while (elapsedTime < camTransitionDuration)
         {
-            t += Time.deltaTime;
+            elapsedTime += Time.deltaTime;
 
-            if (t > camTransitionSpeed) t = camTransitionSpeed;
+            if (elapsedTime > camTransitionDuration) elapsedTime = camTransitionDuration;
 
-            camT.position = Vector3.Lerp(camPos, camComputerTarget.position, t / camTransitionSpeed);
-            camT.rotation = Quaternion.Lerp(camRot, camComputerTarget.rotation, t / camTransitionSpeed);
-            cam.fieldOfView = Mathf.Lerp(fov, computerFov, t / camTransitionSpeed);
+            float percentTime = elapsedTime / camTransitionDuration;
+            float t = camTransitionCurve.Evaluate(percentTime);
+            camT.position = Vector3.LerpUnclamped(camPos, camComputerTarget.position, t);
+            camT.rotation = Quaternion.LerpUnclamped(camRot, camComputerTarget.rotation, t);
+            cam.fieldOfView = Mathf.LerpUnclamped(fov, computerFov, t);
 
             //if (Mathf.Abs(cam.fieldOfView - computerFov) < 0.01f)
 
             yield return null;
         }
 
-            //FinishedComputerTransition();
+        FinishedComputerTransition();
     }
 
     private IEnumerator TransitionToPlayer()
     {
-        t = 0f;
         Vector3 camPos = camT.position;
         Quaternion camRot = camT.rotation;
         float fov = cam.fieldOfView;
 
-        while(t < camTransitionSpeed)
-        {
-            camT.position = Vector3.Lerp(camPos, camPlayerTarget.position, t / camTransitionSpeed);
-            camT.rotation = Quaternion.Lerp(camRot, camPlayerTarget.rotation, t / camTransitionSpeed);
-            cam.fieldOfView = Mathf.Lerp(fov, defaultFov, t / camTransitionSpeed);
+        float elapsedTime = 0;
 
-            if (Mathf.Abs(cam.fieldOfView - defaultFov) < 0.01f)
-            {
-                crosshairUI.SetActive(true);
-                transitionToPlayer = false;
-            }
+        while (elapsedTime < camTransitionDuration)
+        {
+            elapsedTime += Time.deltaTime;
+
+            if (elapsedTime > camTransitionDuration) elapsedTime = camTransitionDuration;
+
+            float percentTime = elapsedTime / camTransitionDuration;
+            float t = camTransitionCurve.Evaluate(percentTime);
+            camT.position = Vector3.LerpUnclamped(camPos, camPlayerTarget.position, t);
+            camT.rotation = Quaternion.LerpUnclamped(camRot, camPlayerTarget.rotation, t);
+            cam.fieldOfView = Mathf.LerpUnclamped(fov, defaultFov, t);
+
+            //if (Mathf.Abs(cam.fieldOfView - computerFov) < 0.01f)
 
             yield return null;
         }

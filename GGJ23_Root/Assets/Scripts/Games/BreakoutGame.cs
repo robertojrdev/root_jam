@@ -80,12 +80,12 @@ public class BreakoutGame : Game
         player.controller = new BreakoutController();
         ((BreakoutController)player.controller).SetMaxMovement(minMaxMovement);
 
-        brickFirstRowPivot.position = Whiteboard.instance.pong_BrickPos;
-        ballPos = Whiteboard.instance.pong_BallPosition;
-        playerPos = Whiteboard.instance.pong_PlayerPosition;
+        brickFirstRowPivot.position = GameManager.Instance.whiteboard.pong_BrickPos;
+        ballPos = GameManager.Instance.whiteboard.pong_BallPosition;
+        playerPos = GameManager.Instance.whiteboard.pong_PlayerPosition;
 
         ballDirection = Vector3.left + Vector3.forward;
-        currentBallSpeed = Whiteboard.instance.pong_BallSpeed;
+        currentBallSpeed = GameManager.Instance.whiteboard.pong_BallSpeed;
 
         foreach (Transform t in brickRows)
         {
@@ -127,12 +127,12 @@ public class BreakoutGame : Game
 
     protected override void OnRestartGame()
     {
-        ballPos = Whiteboard.instance.pong_BallPosition;
-        playerPos = Whiteboard.instance.pong_PlayerPosition;
+        ballPos = GameManager.Instance.whiteboard.pong_BallPosition;
+        playerPos = GameManager.Instance.whiteboard.pong_PlayerPosition;
         int rand = Random.Range(0, 2);
         Vector3 horizontalDir = rand == 0 ? Vector3.left : Vector3.right;
         ballDirection = horizontalDir + Vector3.forward;
-        currentBallSpeed = Whiteboard.instance.pong_BallSpeed;
+        currentBallSpeed = GameManager.Instance.whiteboard.pong_BallSpeed;
         GameManager.GamePlaying = false;
         //UIManager.Instance.ShowCountdown(true);
         StartCoroutine(StartGameTimer(false));
@@ -237,11 +237,13 @@ public class BreakoutGame : Game
         if (other.transform.CompareTag("Wall")) 
         {
             SFXManager.PlaySFX("pong_wall" + Random.Range(0, 4));
+            CamShake.Shake(gameCam, 0.2f, 0.1f, 8);
             return;
         }
         if (other.transform.CompareTag("Player"))
         {
             SFXManager.PlaySFX("pong_hit_" + Random.Range(0, 4));
+            CamShake.Shake(gameCam, 0.2f, 0.1f, 8);
             return;
         }
 
@@ -276,6 +278,7 @@ public class BreakoutGame : Game
         activeBricks.Remove(t);
 
         SFXManager.PlaySFX("break_" + Random.Range(0, 8));
+        CamShake.Shake(gameCam, 0.2f, 0.2f, 8);
 
         /*
         Renderer renderer = other.transform.GetChild(0).GetComponent<Renderer>();
@@ -304,18 +307,18 @@ public class BreakoutGame : Game
         // AO FAZER DEBUG A LISTA DE ACTIVE BRICKS PODE TER MUITO MAIS DO QUE 6.
         // DESTA MANEIRA APENAS FICAM 6 PARA EFEITOS DE TRANSI�AO MESMO QD ESTAMOS EM DEBUG
 
-        Whiteboard.instance.breakout_LastBricksPos.Clear();
-        Whiteboard.instance.breakout_LastBricksRot.Clear();
+        GameManager.Instance.whiteboard.breakout_LastBricksPos.Clear();
+        GameManager.Instance.whiteboard.breakout_LastBricksRot.Clear();
 
         for (int i = 0; i < bricksLeftToWin; i++)
         {
-            Whiteboard.instance.breakout_LastBricksPos.Add(activeBricks[i].position);
-            Whiteboard.instance.breakout_LastBricksRot.Add(activeBricks[i].rotation);
+            GameManager.Instance.whiteboard.breakout_LastBricksPos.Add(activeBricks[i].position);
+            GameManager.Instance.whiteboard.breakout_LastBricksRot.Add(activeBricks[i].rotation);
         }
 
-        Whiteboard.instance.breakout_CameraPos = gameCam.transform.position;
-        Whiteboard.instance.breakout_CameraRot = gameCam.transform.rotation;
-        Whiteboard.instance.breakout_CameraFoV = gameCam.fieldOfView;
+        GameManager.Instance.whiteboard.breakout_CameraPos = gameCam.transform.position;
+        GameManager.Instance.whiteboard.breakout_CameraRot = gameCam.transform.rotation;
+        GameManager.Instance.whiteboard.breakout_CameraFoV = gameCam.fieldOfView;
     }
 
 }

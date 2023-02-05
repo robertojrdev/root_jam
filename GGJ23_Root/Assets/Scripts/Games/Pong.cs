@@ -133,10 +133,10 @@ public class Pong : Game
     protected override void OnFinishGame()
     {
         GameManager.GamePlaying = false;
-        Whiteboard.instance.pong_BrickPos = pongAI.transform.position;
-        Whiteboard.instance.pong_BallSpeed = currentBallSpeed;
-        Whiteboard.instance.pong_BallPosition = ball.transform.position;
-        Whiteboard.instance.pong_PlayerPosition = player.position;
+        GameManager.Instance.whiteboard.pong_BrickPos = pongAI.transform.position;
+        GameManager.Instance.whiteboard.pong_BallSpeed = currentBallSpeed;
+        GameManager.Instance.whiteboard.pong_BallPosition = ball.transform.position;
+        GameManager.Instance.whiteboard.pong_PlayerPosition = player.position;
     }
 
     #endregion

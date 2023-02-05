@@ -14,6 +14,7 @@ public enum Mode
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+    public Whiteboard whiteboard;
     public Mode Mode = Mode.Release;
     public string[] scenesNames;
     public Camera mainCam;
@@ -50,6 +51,18 @@ public class GameManager : MonoBehaviour
 
         UIManager.Instance.ShowLoadingScreen(false);
         LoadNextGame();
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Y))
+        {
+            if (currentGameId != -1)
+            {
+                var currentGame = loadedGames[scenesNames[currentGameId]];
+                currentGame.RestartGame();
+            }
+        }
     }
 
     private void OnGameLoaded(Game game)
