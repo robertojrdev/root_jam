@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class WalkerCamera : MonoBehaviour
 {
@@ -12,9 +14,10 @@ public class WalkerCamera : MonoBehaviour
     public Camera cam;
     public Transform camPlayerTarget, camComputerTarget;
     public float camTransitionSpeed = 1f;
+    public Radio radio;
 
     [Header("UI")]
-    public GameObject interactUI;
+    public TextMeshProUGUI interactUI;
     public GameObject crosshairUI;
     
     private Vector2 rot;
@@ -81,18 +84,22 @@ public class WalkerCamera : MonoBehaviour
             // Look detection
             RaycastHit hit;
             Ray ray = new Ray(camT.position, camT.forward);
-            interactUI.SetActive(false);
+            interactUI.text = "";
             if (Physics.Raycast(ray, out hit, 2f))
             {
                 if (hit.collider.isTrigger)
                 {
                     if (hit.collider.CompareTag("Computer"))
                     {
-                        interactUI.SetActive(true);
+                        interactUI.text = "[E] to Interact";
                         if (Input.GetKeyDown(KeyCode.E))
-                        {
                             InteractComputer();
-                        }
+                    } 
+                    else if (hit.collider.CompareTag("Radio"))
+                    {
+                        interactUI.text = "[E] to Interact";
+                        if (Input.GetKeyDown(KeyCode.E))
+                            radio.Interact();
                     }
                 }
             }
@@ -109,6 +116,6 @@ public class WalkerCamera : MonoBehaviour
     {
         transitionToComputer = true;
         GetComponent<WalkerMovement>().DisableMovement();
-        interactUI.SetActive(false);
+        interactUI.text = "";
     }
 }
