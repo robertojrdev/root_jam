@@ -52,9 +52,6 @@ public class WalkerCamera : MonoBehaviour
 
             if (Mathf.Abs(cam.fieldOfView - computerFov) < 0.01f)
                 FinishedComputerTransition();
-
-            if (Input.GetKeyDown(KeyCode.E))
-                PCtoWalkingSimTransition();
         }
         else if(transitionToPlayer)
         {
@@ -128,6 +125,7 @@ public class WalkerCamera : MonoBehaviour
         transitionToPlayer = true;
         crosshairUI.SetActive(false);
         menuAnim.Play("close menu");
+        GetComponent<WalkerMovement>().EnableMovememt();
     }
 
 }

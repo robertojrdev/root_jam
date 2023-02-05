@@ -15410,6 +15410,10 @@ PrefabInstance:
       propertyPath: manager
       value: 
       objectReference: {fileID: 632567430}
+    - target: {fileID: 3521477652577786360, guid: 296b677b239fe3f479406e89ed94ef9b, type: 3}
+      propertyPath: near clip plane
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 296b677b239fe3f479406e89ed94ef9b, type: 3}
 --- !u!1001 &1679905388
@@ -21240,6 +21244,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5889364638914052349, guid: 50b3d134b8d74cd4e892f955d9aa4a2c, type: 3}
+      propertyPath: fakeVersion
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5889364638914052349, guid: 50b3d134b8d74cd4e892f955d9aa4a2c, type: 3}
+      propertyPath: walkerCamera
+      value: 
+      objectReference: {fileID: 1882657107}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 50b3d134b8d74cd4e892f955d9aa4a2c, type: 3}
 --- !u!224 &5522011875947721531 stripped
