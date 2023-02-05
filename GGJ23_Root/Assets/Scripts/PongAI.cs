@@ -105,6 +105,8 @@ public class PongAI : MonoBehaviour
         else if (other.transform.CompareTag("Player"))
         {
             // play player hit effects
+            Debug.Log("PLAYER = null " + player == null);
+            player.PlayHitVFX();
         }
     }
 
