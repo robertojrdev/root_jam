@@ -170,6 +170,7 @@ MonoBehaviour:
   camPlayerTarget: {fileID: 709923464819468051}
   camComputerTarget: {fileID: 0}
   camTransitionSpeed: 6
+  radio: {fileID: 0}
   interactUI: {fileID: 0}
   crosshairUI: {fileID: 0}
 --- !u!114 &709923465619905415
@@ -188,6 +189,7 @@ MonoBehaviour:
   moveSpeed: 30
   orientation: {fileID: 709923465001914129}
   lockInput: 0
+  walkerObj: {fileID: 709923463778489931}
 --- !u!114 &1882657111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -298,7 +300,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 0.8, y: 1, z: 0.8}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3521477652577786362
 GameObject:

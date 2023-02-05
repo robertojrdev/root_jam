@@ -434,6 +434,8 @@ GameObject:
   - component: {fileID: 1659629968737697475}
   - component: {fileID: 7526920804007730386}
   - component: {fileID: 5889364638914052349}
+  - component: {fileID: 3559275038464693622}
+  - component: {fileID: 638062754181817310}
   m_Layer: 5
   m_Name: Menu
   m_TagString: Untagged
@@ -489,6 +491,38 @@ MonoBehaviour:
   - {fileID: 7370070429467407430}
   - {fileID: 94578757601912367}
   selector: {fileID: 2573869388967713558}
+--- !u!95 &3559275038464693622
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5034625396886944783}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5b550db41af30bd42a52880d7b0d3613, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!225 &638062754181817310
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5034625396886944783}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &5886711357748700516
 GameObject:
   m_ObjectHideFlags: 0
