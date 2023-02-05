@@ -14,12 +14,12 @@ public class InfiniteRunner : Game
     public Transform[] startBricks = new Transform[6];
     
     public float transitionDelay = 5f;
-    public float brickTransitionSpeed = 4f;
-    public float cameraTransitionSpeed = 4f;
+    public float brickTransitionDuration = 3f;
+    public float cameraTransitionDuration = 2f;
     public Material groundLinesMaterial;
     public Color groundLinesStartColor, groundLinesEndColor;
     private bool transitionBricks = false;
-    private bool transitionCamera = false;
+    private float transtionTime = 0f;
 
     public Camera cam;
     public Transform endTransitionCamTarget;
@@ -41,22 +41,24 @@ public class InfiniteRunner : Game
         for (int i = 0; i < Whiteboard.instance.runner_BrickPositions.Length; i++)
             startBricks[i] = Instantiate(brickPrefab, Whiteboard.instance.runner_BrickPositions[i], Quaternion.identity).transform;
 
+        //TODO: ROBERTO SUBSTITUI ESTAS VARIAVEIS pelas que tao comentadas
+
         cam.transform.position = new Vector3(0f, 200f, 0f);
         //cam.transform.position = Whiteboard.instance.runner_CameraPos;
+
         cam.transform.rotation = Quaternion.LookRotation(Vector3.down);
         //cam.transform.rotation = Whiteboard.instance.runner_CameraRot;
         cam.fieldOfView = 2;
         //cam.fieldOfView = Whiteboard.instance.runner_CameraFoV;
         
         groundLinesMaterial.color = groundLinesStartColor;
-
-        OnStartGame();
     }
 
     protected override void OnStartGame()
     {
         // inicia transicao
         // call start level no fim da transicao
+        print("ONSTARTGAME");   
         StartCoroutine(StartTransitionIn(transitionDelay));
     }
 
@@ -89,25 +91,24 @@ public class InfiniteRunner : Game
 
         if (transitionBricks)
         {
+            transtionTime += Time.deltaTime;
+            
             // Transition Bricks
             for (int i = 0; i < startBricks.Length; i++)
             {
-                startBricks[i].position = Vector3.Lerp(startBricks[i].position, initialBrickPositions[i].position, brickTransitionSpeed * Time.deltaTime);
-                startBricks[i].rotation = Quaternion.Lerp(startBricks[i].rotation, initialBrickPositions[i].rotation, brickTransitionSpeed * Time.deltaTime);
+                startBricks[i].position = Vector3.Lerp(startBricks[i].position, initialBrickPositions[i].position, transtionTime / brickTransitionDuration );
+                startBricks[i].rotation = Quaternion.Lerp(startBricks[i].rotation, initialBrickPositions[i].rotation, transtionTime / brickTransitionDuration);
             }
-        }
-
-        if (transitionCamera)
-        {
+            
             // Transition Camera
-            cam.transform.position = Vector3.Lerp(cam.transform.position, endTransitionCamTarget.position, cameraTransitionSpeed * Time.deltaTime);
-            cam.transform.rotation = Quaternion.Lerp(cam.transform.rotation, endTransitionCamTarget.rotation, cameraTransitionSpeed * 1.2f * Time.deltaTime);
-            cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, endTransitionCamFoV, cameraTransitionSpeed * 1.3f * Time.deltaTime);
+            cam.transform.position = Vector3.Lerp(Whiteboard.instance.runner_CameraPos, endTransitionCamTarget.position, transtionTime / cameraTransitionDuration);
+            cam.transform.rotation = Quaternion.Slerp(Whiteboard.instance.runner_CameraRot, endTransitionCamTarget.rotation, transtionTime / cameraTransitionDuration);
+            cam.fieldOfView = Mathf.Lerp(Whiteboard.instance.runner_CameraFoV, endTransitionCamFoV, transtionTime / cameraTransitionDuration);
 
             // Transition level visuals
-            groundLinesMaterial.color = Color.Lerp(groundLinesMaterial.color, groundLinesEndColor, cameraTransitionSpeed * Time.deltaTime);
+            groundLinesMaterial.color = Color.Lerp(groundLinesMaterial.color, groundLinesEndColor, transtionTime / cameraTransitionDuration);
 
-            if (Mathf.Abs(cam.fieldOfView - endTransitionCamFoV) < 0.01f)
+            if (transtionTime >= cameraTransitionDuration)
                 StartLevel();
         }
     }
@@ -115,8 +116,6 @@ public class InfiniteRunner : Game
     {
         yield return new WaitForSeconds(waitTime);
         transitionBricks = true;
-        yield return new WaitForSeconds(1f);
-        transitionCamera = true;
     }
     private IEnumerator StartGameIn(float waitTime)
     {

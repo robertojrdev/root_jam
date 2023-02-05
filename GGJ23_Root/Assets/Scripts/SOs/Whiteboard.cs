@@ -24,11 +24,12 @@ public class Whiteboard : ScriptableSingleton<Whiteboard>
     public List<Transform> breakout_LastBricks;
 
     // RUNNER
-    public Vector3 cameraPos;
-    public Vector3 cameraRot;
+    public Vector3 runner_CameraPos;
+    public Quaternion runner_CameraRot;
+    public float runner_CameraFoV;
 
     // isto tem de ser 6 bricks
-    public Vector3[] brickPositions =
+    public Vector3[] runner_BrickPositions =
     {
         new Vector3 (0f, 0f, -8.8f),
         new Vector3 (-1.4f, 3.2f),
