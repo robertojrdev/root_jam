@@ -8,6 +8,7 @@ public class InfiniteRunner : MonoBehaviour
     public Animator animator;
     [Range(0,1)]
     public float debugSkipTime = 0.5f;
+    public Transform[] tracks;
 
     [Header("Audio")]
     public AudioSource songAudioSorce;
