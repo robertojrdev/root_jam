@@ -9,9 +9,18 @@ public class BrickVisuals : MonoBehaviour
 
     private Material mat;
 
+    private Color[] vfxColors;
+
     private void Awake()
     {
         mat = mesh.material;
+
+        vfxColors = new Color[bopVFX.Length];
+        for (int i = 0; i < vfxColors.Length; i++)
+        {
+            var main = bopVFX[i].main;
+            vfxColors[i] = main.startColor.color;
+        }
     }
 
     public void Show(bool show)
@@ -19,10 +28,10 @@ public class BrickVisuals : MonoBehaviour
         if (mesh != null) mesh.gameObject.SetActive(show);
         if (bopVFX != null)
         {
-            Color c = show ? Color.white : Color.clear;
-            foreach (ParticleSystem ps in bopVFX)
+            for (int i = 0; i < bopVFX.Length; i++)
             {
-                var main = ps.main;
+                Color c = show ? vfxColors[i] : Color.clear;
+                var main = bopVFX[i].main;
                 main.startColor = c;
             }
         }
